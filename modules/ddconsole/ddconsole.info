@@ -1,0 +1,7 @@
+name = "Dyndrop Console"
+core = "7.x"
+package = "Dyndrop"
+description = "Console"
+version = "7.x-1.0"
+project = "Dyndrop"
+

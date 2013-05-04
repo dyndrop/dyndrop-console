@@ -1,0 +1,50 @@
+name = Dyndrop Console
+description = Basic distribution for Dyndrop console
+version = 0.1
+core = 7.x
+
+
+dependencies[] = block
+dependencies[] = cobalt
+dependencies[] = comment
+dependencies[] = field
+dependencies[] = field_sql_storage
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = filter
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = node
+dependencies[] = options
+dependencies[] = path
+dependencies[] = locale
+dependencies[] = system
+dependencies[] = taxonomy
+dependencies[] = text
+dependencies[] = update
+dependencies[] = user
+dependencies[] = dblog
+
+dependencies[] = admin
+dependencies[] = ctools
+dependencies[] = features
+dependencies[] = globalredirect
+dependencies[] = panels
+dependencies[] = panels_everywhere
+dependencies[] = pathauto
+dependencies[] = services
+dependencies[] = taxonomy_manager
+dependencies[] = token
+dependencies[] = views
+dependencies[] = views_content
+dependencies[] = transliteration
+dependencies[] = module_filter
+dependencies[] = flag
+dependencies[] = nagios
+dependencies[] = jquery_update
+
+dependencies[] = ddbase
+
+files[] = dyndrop_console.profile
+

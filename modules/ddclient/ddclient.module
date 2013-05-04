@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * Implementation of hook_init()
+ */
+function ddclient_init() {
+   // $cfclient = new DyndropClient("alternand@gmail.com");
+   // $apps = $cfclient->apps();
+   // echo "<h1>alternand@gmail.com apps</h1>";
+   // echo "<ul>";
+   // foreach($apps as $app) {
+   //   echo "<li>" . $app["guid"] . " -- url: " . $app["manifest"]["uris"][0] . "</li>";
+   // }
+   // echo "</ul>";
+  // print_r($cfclient->app_create(new DyndropApp("pouet", array("jeanmi.nandcloud2.fr"))));
+
+
+   // $ddclient = new DyndropClient();
+   // $user = $ddclient->user_lookup("ndeschildre@gmail.com");
+   // print_r($user);
+
+}
+
+
+/**
+ * Implements hook_form_alter()
+ */
+function ddclient_form_alter(&$form, &$form_state, $form_id) {
+  // User edition form: We update the user
+  if($form_id == "user_profile_form") {
+    // Do not allow the change of the mail
+    $form["account"]["mail"]["#attributes"]["disabled"] = "disabled";
+
+    $form["#submit"][] = "ddclient_form_user_profile_submit";
+  }
+
+  // User login form: We login the user to the Dyndrop server
+  if($form_id == "user_login") {
+    $form["#validate"][] = "ddclient_form_user_login_validate";
+  }
+}
+
+function ddclient_form_user_profile_submit($form, &$form_state) {
+  $values = $form_state['values'];
+
+  if(empty($values['uid'])) {
+    return;
+  }
+
+  // Load the current user object as stored in DB
+  $user = user_load($values['uid']);
+
+  // First lookup if the user exists
+  $ddclient = new DyndropClient();
+  $dduser = new DyndropUser($user->init, $values['name']);
+  if($ddclient->user_lookup($user->init)) {
+    // Update the user values
+    if($ddclient->user_update($dduser, $values["pass"]) == false) {
+      drupal_set_message("We are experiencing technical difficulties. We're working on it!", "error");
+    }
+  }
+  else {
+    // Create a user on the dyndrop server
+    if($ddclient->user_register($dduser, $values["pass"]) == false) {
+      drupal_set_message("We are experiencing technical difficulties. We're working on it!", "error");
+    }
+    else {
+      if($ddclient->user_authentificate($user->init, $values['pass']) == false) {
+        form_set_error('name', t('Sorry, we are experiencing technical difficulties and were unable to log you in.'));      
+      }
+    }
+  }
+}
+
+function ddclient_form_user_login_validate($form, &$form_state) {
+  $values = $form_state['values'];
+
+  //First step: Get the init field from the username
+  $user = user_load_by_name($values['name']);
+
+  if($user) {
+    //Now we try to authentificate against the Dyndrop server
+    $ddclient = new DyndropClient();
+    if($ddclient->user_authentificate($user->init, $values['pass']) == false) {
+      form_set_error('name', t('Sorry, we are experiencing technical difficulties and were unable to log you in.'));      
+    }
+  }
+}

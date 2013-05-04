@@ -1,0 +1,22 @@
+
+<h2>My drupal projects</h2>
+
+<table class="table table-striped apps">
+  <thead>
+    <tr><th>Name</th><th>Install URL</th><th>URL</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+
+    <tr ng-repeat="app in apps">
+      <td>{{app.name}}</td>
+      <td><a href="http://{{app.instances[0].uris[0]}}/install.php" target="_blank">http://{{app.instances[0].uris[0]}}/install.php</a></td>
+      <td><a href="http://{{app.instances[0].uris[0]}}" target="_blank">http://{{app.instances[0].uris[0]}}</a></td>
+      <td><a class="btn" href="#/app/{{app.name}}">Edit</a></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<div data-loading></div>
+
+<a href="#/new" role="button" class="btn">Create new Drupal</a>

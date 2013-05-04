@@ -1,0 +1,129 @@
+<?php
+
+/**
+ * Implementation of hook_init()
+ */
+function ddconsole_init() {
+
+}
+
+/**
+ * Implements hook_permission().
+ */
+function ddconsole_permission() {
+  $perms = array(
+    'access dyndrop console' => array(
+      'title' => t('Access the dyndrop console'),
+    ),
+  );
+
+  return $perms;
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function ddconsole_menu() {
+  $items['console'] = array(
+    'title' => 'Content',
+    'page callback' => 'ddconsole_console',
+    'access arguments' => array('access dyndrop console'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ddconsole_theme() {
+  return array(
+    'dyndrop_console' => array(
+      'template' => 'dyndrop_console',
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_library()
+ */
+function ddconsole_library() {
+  $libraries['angularjs'] = array(
+    'title' => 'Angular JS',
+    'website' => 'http://angularjs.org/',
+    'version' => '1.0.6',
+    'js' => array(
+      drupal_get_path('module', 'ddconsole') . '/libraries/angular.js' => array(),
+      drupal_get_path('module', 'ddconsole') . '/libraries/angular-resource.js' => array(),
+    ),
+  );
+
+  $libraries['angular_ui_bootstrap'] = array(
+    'title' => 'Angular UI Boostrap',
+    'website' => 'https://github.com/angular-ui/bootstrap/tree/gh-pages',
+    'version' => '0.3.0',
+    'js' => array(
+      drupal_get_path('module', 'ddconsole') . '/libraries/ui-bootstrap-tpls-0.3.0.js' => array(),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Page callback for the console.
+ */
+function ddconsole_console() {
+  $output = "";
+
+  drupal_add_css(drupal_get_path('module', 'ddconsole') . '/css/ddconsole.css');
+  drupal_add_library('ddconsole', 'angularjs');
+  drupal_add_library('ddconsole', 'angular_ui_bootstrap');
+  drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole.js');
+  drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_app.js');
+  drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_widgets.js');
+  drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_resource.js');
+  drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_loading.js');
+  drupal_add_js(array(
+    'dyndrop_console' => array(
+      'server_url' => variable_get('pxcf_client_api_endpoint', ''),
+      'auth_token'=> $_SESSION['ddclient_token'],
+      'default_cf_dns_suffix' => _ddconsole_get_default_cf_dns_suffix(),
+      'angular_templates' => drupal_get_path('module', 'ddconsole') . '/angular/templates/',
+      )
+    ), 'setting');
+
+  $output = theme("dyndrop_console");
+
+  return $output;
+}
+
+/**
+ * Implementation of hook_preprocess_html()
+ */
+function ddconsole_preprocess_html(&$vars) {
+  $vars['attributes_array']['ng-app'] = "ddconsole";
+}
+
+/**
+ * Implementation of hook_preprocess_dyndrop_console()
+ */
+function ddconsole_preprocess_dyndrop_console(&$vars) {
+  
+}
+
+/**
+ * Get the default DNS suffix to use by CF apps.
+ */
+function _ddconsole_get_default_cf_dns_suffix() {
+  $cf_dns_suffix = variable_get('ddconsole_default_app_dns_suffix', '');
+  if(empty($cf_dns_suffix)) {
+    $cf_dns_host = parse_url(variable_get('pxcf_client_api_endpoint', ''), PHP_URL_HOST);
+    $cf_dns_host_parts = explode('.', $cf_dns_host);
+    array_shift($cf_dns_host_parts);
+    $cf_dns_suffix = implode('.', $cf_dns_host_parts);
+  }
+
+  return $cf_dns_suffix;  
+}

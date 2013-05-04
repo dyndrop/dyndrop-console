@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Implementation of hook_init()
+ */
+function ddbase_init() {
+  
+}
+
+/**
+ * Implements hook_ctools_plugin_directory -
+ * This lets ctools know to scan the module for a content_type plugin file
+ * Detailed docks in ctools/ctools.api.php
+ *
+ * @param $owner
+ * @param $plugin_type
+ * @return string
+ */
+// function ddbase_ctools_plugin_directory($owner, $plugin_type) {
+//   // We'll be nice and limit scandir() calls
+//   if ($owner == 'ctools' && $plugin_type == 'content_types') {
+//     return 'plugins/panes';
+//   }
+// }
