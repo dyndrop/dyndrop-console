@@ -64,6 +64,10 @@ projects[views][version] = "3.5"
 ; Themes
 projects[bootstrap][version] = "2.0-beta3"
 
+libraries[bootstrap][download][type] = "file"
+libraries[bootstrap][download][url] = "http://twitter.github.io/bootstrap/assets/bootstrap.zip"
+libraries[bootstrap][destination] = "themes/bootstrap/"
+
 projects[rubik][version] = "4.0-beta8"
 
 projects[tao][version] = "3.0-beta4"
