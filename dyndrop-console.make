@@ -8,7 +8,7 @@ projects[drupal][version] = "7.21"
 projects[dyndrop_console][download][type] = "git"
 projects[dyndrop_console][download][url] = "git@github.com:dyndrop/dyndrop-console.git"
 projects[dyndrop_console][download][subtree] = "profiles/dyndrop_console"
-projects[dyndrop_console][type] = "module"
+projects[dyndrop_console][type] = "profile"
 
 projects[admin][version] = "2.x-dev"
 
