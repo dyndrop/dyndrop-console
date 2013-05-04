@@ -5,11 +5,10 @@ api = 2
 projects[drupal][version] = "7.21"
 
 ; Modules
-; Please fill the following out. Type may be one of get, git, bzr or svn,
-; and url is the url of the download.
-projects[px][download][type] = ""
-projects[px][download][url] = ""
-projects[px][type] = "module"
+projects[dyndrop_console][download][type] = "git"
+projects[dyndrop_console][download][url] = "git@github.com:dyndrop/dyndrop-console.git"
+projects[dyndrop_console][download][subtree] = "profiles/dyndrop_console"
+projects[dyndrop_console][type] = "module"
 
 projects[admin][version] = "2.x-dev"
 
@@ -17,12 +16,20 @@ projects[ctools][version] = "1.2"
 
 projects[cobalt][version] = "1.0-beta5"
 
-; Please fill the following out. Type may be one of get, git, bzr or svn,
-; and url is the url of the download.
-projects[Dyndrop][download][type] = ""
-projects[Dyndrop][download][url] = ""
-projects[Dyndrop][type] = "module"
-projects[Dyndrop][version] = "1.0"
+projects[ddbase][download][type] = "git"
+projects[ddbase][download][url] = "git@github.com:dyndrop/dyndrop-console.git"
+projects[ddbase][download][subtree] = "modules/ddbase"
+projects[ddbase][type] = "module"
+
+projects[ddclient][download][type] = "git"
+projects[ddclient][download][url] = "git@github.com:dyndrop/dyndrop-console.git"
+projects[ddclient][download][subtree] = "modules/ddclient"
+projects[ddclient][type] = "module"
+
+projects[ddconsole][download][type] = "git"
+projects[ddconsole][download][url] = "git@github.com:dyndrop/dyndrop-console.git"
+projects[ddconsole][download][subtree] = "modules/ddconsole"
+projects[ddconsole][type] = "module"
 
 projects[features][version] = "2.0-beta1"
 
@@ -61,10 +68,9 @@ projects[rubik][version] = "4.0-beta8"
 
 projects[tao][version] = "3.0-beta4"
 
-; Please fill the following out. Type may be one of get, git, bzr or svn,
-; and url is the url of the download.
-projects[dd_theme][download][type] = ""
-projects[dd_theme][download][url] = ""
+projects[dd_theme][download][type] = "git"
+projects[dd_theme][download][url] = "git@github.com:dyndrop/dyndrop-console.git"
+projects[dd_theme][download][subtree] = "themes/dd_theme"
 projects[dd_theme][type] = "theme"
 
 

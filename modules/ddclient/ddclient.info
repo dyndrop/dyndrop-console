@@ -1,9 +1,7 @@
-name = "Dyndrop server client"
+name = "Dyndrop API client"
 core = "7.x"
 package = "Dyndrop"
 description = "Base pkg."
-version = "7.x-1.0"
-project = "Dyndrop"
 
 dependencies[] = "http_client"
 
