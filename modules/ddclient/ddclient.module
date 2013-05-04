@@ -4,20 +4,6 @@
  * Implementation of hook_init()
  */
 function ddclient_init() {
-   // $cfclient = new DyndropClient("alternand@gmail.com");
-   // $apps = $cfclient->apps();
-   // echo "<h1>alternand@gmail.com apps</h1>";
-   // echo "<ul>";
-   // foreach($apps as $app) {
-   //   echo "<li>" . $app["guid"] . " -- url: " . $app["manifest"]["uris"][0] . "</li>";
-   // }
-   // echo "</ul>";
-  // print_r($cfclient->app_create(new DyndropApp("pouet", array("jeanmi.nandcloud2.fr"))));
-
-
-   // $ddclient = new DyndropClient();
-   // $user = $ddclient->user_lookup("ndeschildre@gmail.com");
-   // print_r($user);
 
 }
 
@@ -77,6 +63,11 @@ function ddclient_form_user_login_validate($form, &$form_state) {
 
   //First step: Get the init field from the username
   $user = user_load_by_name($values['name']);
+
+  //We don't require the superuser to have a CF account.
+  if($user && $user->uid == 1) {
+    return;
+  }
 
   if($user) {
     //Now we try to authentificate against the Dyndrop server

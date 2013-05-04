@@ -129,6 +129,11 @@ class DyndropClient {
    */
   public function __construct() {
 
+    //Basic check: If the endpoint and/or token is missing, throw a big warning.
+    if(variable_get('pxcf_client_api_endpoint', '') == "" || variable_get('pxcf_client_api_token', '') == "") {
+      drupal_set_message(t('The Dyndrop client is not configured! You need to add the endpoint and token infos. Please see the documentation at https://github.com/dyndrop/dyndrop-console'), 'error');
+    }
+
     //Create the HTTP client
     $this->client = new HttpClient(null, new HttpClientBaseFormatter(HttpClientBaseFormatter::FORMAT_JSON), 'DyndropClient::_httpclient_alter');
     $this->client->options['curlopts'][CURLOPT_TIMEOUT] = 10;
