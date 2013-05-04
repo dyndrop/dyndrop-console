@@ -51,6 +51,11 @@ projects[panels_everywhere][version] = "1.0-rc1"
 
 projects[pathauto][version] = "1.2"
 
+projects[redis][version] = "2.0-beta4"
+libraries[predis][download][type] = "git"
+libraries[predis][download][url] = "git@github.com:nrk/predis.git"
+libraries[predis][download][tag] = "v0.8.3"
+
 projects[services][version] = "3.3"
 
 projects[taxonomy_manager][version] = "1.0-rc2"
@@ -58,6 +63,8 @@ projects[taxonomy_manager][version] = "1.0-rc2"
 projects[token][version] = "1.5"
 
 projects[transliteration][version] = "3.1"
+
+projects[varnish][version] = "1.0-beta2"
 
 projects[views][version] = "3.5"
 
