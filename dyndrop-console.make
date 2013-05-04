@@ -5,9 +5,9 @@ api = 2
 projects[drupal][version] = "7.21"
 
 ; Modules
-projects[dyndrop_console][download][type] = "git"
-projects[dyndrop_console][download][url] = "git@github.com:dyndrop/dyndrop-console.git"
-projects[dyndrop_console][download][subtree] = "profiles/dyndrop_console"
+projects[dyndrop_console][download][type] = "get"
+projects[dyndrop_console][download][url] = "https://github.com/dyndrop/dyndrop-console/archive/master.zip"
+projects[dyndrop_console][download][subtree] = "dyndrop-console-master/profiles/dyndrop_console"
 projects[dyndrop_console][type] = "profile"
 
 projects[admin][version] = "2.x-dev"
@@ -16,19 +16,19 @@ projects[ctools][version] = "1.2"
 
 projects[cobalt][version] = "1.0-beta5"
 
-projects[ddbase][download][type] = "git"
-projects[ddbase][download][url] = "git@github.com:dyndrop/dyndrop-console.git"
-projects[ddbase][download][subtree] = "modules/ddbase"
+projects[ddbase][download][type] = "get"
+projects[ddbase][download][url] = "https://github.com/dyndrop/dyndrop-console/archive/master.zip"
+projects[ddbase][download][subtree] = "dyndrop-console-master/modules/ddbase"
 projects[ddbase][type] = "module"
 
-projects[ddclient][download][type] = "git"
-projects[ddclient][download][url] = "git@github.com:dyndrop/dyndrop-console.git"
-projects[ddclient][download][subtree] = "modules/ddclient"
+projects[ddclient][download][type] = "get"
+projects[ddclient][download][url] = "https://github.com/dyndrop/dyndrop-console/archive/master.zip"
+projects[ddclient][download][subtree] = "dyndrop-console-master/modules/ddclient"
 projects[ddclient][type] = "module"
 
-projects[ddconsole][download][type] = "git"
-projects[ddconsole][download][url] = "git@github.com:dyndrop/dyndrop-console.git"
-projects[ddconsole][download][subtree] = "modules/ddconsole"
+projects[ddconsole][download][type] = "get"
+projects[ddconsole][download][url] = "https://github.com/dyndrop/dyndrop-console/archive/master.zip"
+projects[ddconsole][download][subtree] = "dyndrop-console-master/modules/ddconsole"
 projects[ddconsole][type] = "module"
 
 projects[features][version] = "2.0-beta1"
@@ -68,9 +68,9 @@ projects[rubik][version] = "4.0-beta8"
 
 projects[tao][version] = "3.0-beta4"
 
-projects[dd_theme][download][type] = "git"
-projects[dd_theme][download][url] = "git@github.com:dyndrop/dyndrop-console.git"
-projects[dd_theme][download][subtree] = "themes/dd_theme"
+projects[dd_theme][download][type] = "get"
+projects[dd_theme][download][url] = "https://github.com/dyndrop/dyndrop-console/archive/master.zip"
+projects[dd_theme][download][subtree] = "dyndrop-console-master/themes/dd_theme"
 projects[dd_theme][type] = "theme"
 
 
