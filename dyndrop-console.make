@@ -38,6 +38,8 @@ projects[flag][version] = "2.0"
 projects[globalredirect][version] = "1.5"
 
 projects[http_client][version] = "2.4"
+; Do not fail on empty JSON result
+projects[http_client][patch][] = http://drupal.org/files/httpclient-json-unserialization.patch
 
 projects[jquery_update][version] = "2.3"
 
