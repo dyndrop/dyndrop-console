@@ -43,16 +43,19 @@ function ddclient_form_user_profile_submit($form, &$form_state) {
     // Update the user values
     if($ddclient->user_update($dduser, $values["pass"]) == false) {
       drupal_set_message("We are experiencing technical difficulties. We're working on it!", "error");
+      watchdog('ddclient', 'Unable to update the user.');
     }
   }
   else {
     // Create a user on the dyndrop server
     if($ddclient->user_register($dduser, $values["pass"]) == false) {
       drupal_set_message("We are experiencing technical difficulties. We're working on it!", "error");
+      watchdog('ddclient', 'Unable to register the user.');
     }
     else {
       if($ddclient->user_authentificate($user->init, $values['pass']) == false) {
-        form_set_error('name', t('Sorry, we are experiencing technical difficulties and were unable to log you in.'));      
+        form_set_error('name', t('Sorry, we are experiencing technical difficulties and were unable to log you in.'));
+        watchdog('ddclient', 'Unable to authentificate the user.');
       }
     }
   }
