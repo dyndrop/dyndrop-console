@@ -1,6 +1,6 @@
 <div data-loading></div>
 
-<h2>{{app.name}}</h2>
+<h2>{{app.label}}</h2>
 
 
 <div class="row">
@@ -9,7 +9,7 @@
 
       <li class="nav-header">Production</li>
       <li class="active" ng-click="setActive($event)"><a href="" ng-click="setComponent('production-overview')">Overview</a></li>
-      <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('production-backups')">Backups</a></li>
+      <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('production-dns')">Domain names</a></li>
 
       <li class="nav-header">Test</li>
       <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('test-overview')">Overview</a></li>
@@ -21,12 +21,10 @@
       <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('configure')">Configure project</a></li>
     </ul>
   </div>
-  <div class="span7">
     <div ng-switch on="component" >
       <div ng-switch-when="production-overview" ng-include="angular_templates_path + 'partials/app-production-overview.html'"></div>
       <div ng-switch-when="configure" ng-include="angular_templates_path + 'partials/app-configure.html'"></div>
       <!-- <div ng-switch-when="cm"></div> -->
-      <div ng-switch-default></div>
+      <div ng-switch-default><div class="span8">To be done.</div></div>
     </div>
-  </div>
 </div>

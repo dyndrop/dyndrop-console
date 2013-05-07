@@ -3,10 +3,10 @@
 <h2>Launch a new Drupal project</h2>
 
 <form name="appEditForm">
-  <div class="control-group" ng-class="{error: appEditForm.name.$invalid}">
+  <div class="control-group" ng-class="{error: appEditForm.label.$invalid}">
     <label>Name</label>
-    <input type="text" name="name" ng-model="app.name" required>
-    <span ng-show="appEditForm.name.$error.required" class="help-inline">
+    <input type="text" name="label" ng-model="app.label" required>
+    <span ng-show="appEditForm.label.$error.required" class="help-inline">
         Required</span>
   </div>
  

@@ -34,7 +34,7 @@
             LoadingSrv.errorMessages.push('Server internal error: ' + get_error_msg(errorResponse));
             break;
           default:
-            LoadingSrv.errorMessages.push('Code ' + errorResponse.status + ':' + get_error_msg(errorResponse));
+            LoadingSrv.errorMessages.push(get_error_msg(errorResponse) + ' [' + errorResponse.status + ']');
         }
         return $q.reject(errorResponse);
       });
