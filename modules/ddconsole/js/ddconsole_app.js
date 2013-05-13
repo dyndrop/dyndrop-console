@@ -56,6 +56,14 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
       }
     }
 
+    $scope.removeExternalUri = function(uri) {
+      var index = $scope.app.instances[0].external_uris.indexOf(uri);
+      if(index >= 0) {
+        $scope.app.instances[0].external_uris.splice(index, 1);
+        $scope.update();
+      }
+    }
+
   }]);
 
 

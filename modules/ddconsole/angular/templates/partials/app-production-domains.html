@@ -11,7 +11,7 @@
 
   <ul ng-show="app.instances[0].external_uris.length">
     <li ng-repeat="uri in app.instances[0].external_uris">
-      <a href="http://{{uri}}" target="_blank"><span>{{uri}}</span></a>
+      <a href="http://{{uri}}" target="_blank"><span>{{uri}}</span></a> <i class="icon-remove" ng-click="removeExternalUri(this.uri)"></i>
     </li>
   </ul>
 
