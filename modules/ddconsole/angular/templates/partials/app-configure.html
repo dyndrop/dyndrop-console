@@ -1,9 +1,17 @@
 <div class="span8">
   <form>
+    <legend>Settings</legend>
+    <label>Application name</label>
+    <input type="text" ng-model="app.label" />
+    <button type="button" class="btn" ng-click="update()">Rename</button>
+  </form>
+
+  <form>
     <legend>Danger zone</legend>
     <button type="button" class="btn btn-danger delete pull-right" ng-click="destroy()">Delete application</button>
     <label>Delete this application</label>
     <span class="help-block">Delete everything, including the source code repository, the production instance, the developments instances. There is no going back.</span>
+
 
   </form>
 </div>

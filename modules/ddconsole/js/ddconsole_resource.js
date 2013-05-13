@@ -11,8 +11,8 @@ angular.module('ddconsole.resource', ['ngResource'])
     );
 
     App.prototype.update = function(cb) {
-      return App.update({id: this._id.$oid},
-        angular.extend({}, this, {_id:undefined}), cb);
+      return App.update({id: this.name},
+        angular.extend({}, this), cb);
     };
 
     App.prototype.destroy = function(cb) {

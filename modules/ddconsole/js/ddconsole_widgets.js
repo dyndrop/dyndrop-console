@@ -43,4 +43,21 @@ angular.module('ddconsole.widgets', [])
         ctrl.$setViewValue(get_value(elm));
       }
     };
+  })
+  .directive('domainName', function() {
+    return {
+      require: 'ngModel',
+      link: function(scope, elm, attrs, ctrl) {
+        ctrl.$parsers.unshift(function(viewValue) {
+          var DNS_REGEXP = /^(?!\.)([\da-z\.-]+)\.([a-z]{2,6})$/g;
+          if (DNS_REGEXP.test(viewValue)) {
+            ctrl.$setValidity('domain', true);
+            return viewValue;
+          } else {
+            ctrl.$setValidity('domain', false);
+            return undefined;
+          }
+        });
+      }
+    }
   });

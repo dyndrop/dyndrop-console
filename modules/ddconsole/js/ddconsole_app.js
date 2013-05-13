@@ -30,6 +30,12 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
     }
     $scope.component = 'production-overview';
 
+    $scope.update = function() {
+      $scope.app.update(function() {
+        //success
+      });
+    }
+
     $scope.destroy = function() {
       self.original.destroy(function() {
         $location.path('/list');
@@ -38,7 +44,19 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
 
     $scope.angular_templates_path = DDConsoleConfig.angular_templates;
 
-  }]);;
+  }])
+.controller('ViewProductionDomainsCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
+    var self = this;
+
+    $scope.addExternalUri = function () {
+      if($scope.new_external_uri != undefined) {
+        $scope.app.instances[0].external_uris.push($scope.new_external_uri);
+        $scope.new_external_uri = '';
+        $scope.update();
+      }
+    }
+
+  }]);
 
 
 })(jQuery);

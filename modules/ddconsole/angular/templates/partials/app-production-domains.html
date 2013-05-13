@@ -1,0 +1,42 @@
+<div class="span8" ng-controller="ViewProductionDomainsCtrl">
+  <legend>Domain names</legend>
+  
+    <strong>Dyndrop domain name: </strong>
+    <a href="http://{{app.instances[0].uris[0]}}/" target="_blank">{{app.instances[0].uris[0]}}</a>
+  
+  <br />
+  <br />
+
+  <div style="padding-bottom:4px"><strong>Your own domain names: </strong></div>
+
+  <ul ng-show="app.instances[0].external_uris.length">
+    <li ng-repeat="uri in app.instances[0].external_uris">
+      <a href="http://{{uri}}" target="_blank"><span>{{uri}}</span></a>
+    </li>
+  </ul>
+
+  <form ng-submit="addExternalUri()" name="externalUriForm" class="form-inline">
+    <div class="control-group url" ng-class="{error: externalUriForm.uri.$invalid}" style="display:inline">
+      <div class="input-prepend">
+      <span class="add-on">http://</span>
+        <input type="text" ng-model="new_external_uri" size="30"
+             placeholder="add your own domain here" name="uri" domain-name>
+      </div>
+    </div>
+    <input class="btn-primary" type="submit" value="add">
+  </form>
+
+  <div class="well">
+    <strong>IMPORTANT:</strong> To add your own domain name, you need to:
+    <ol>
+      <li>Add it above.</li>
+      <li>Add a CNAME record at your domain name provider (e.g. GoDaddy, Gandi, ..).</li>
+    </ol>
+    A CNAME record act as a web redirection, which will link your domain name(s) to {{app.instances[0].uris[0]}}. <br />
+    If you want to redirect www.example.com to this website, you will need to add the following CNAME record:<br />
+    <strong>name:</strong> www <br />
+    <strong>value:</strong> {{app.instances[0].uris[0]}}.<br /><br />
+    More help <a href="http://groups.gandi.net/en/topic/gandi.en.domain/4276">here</a>.
+  </div>
+
+</div>

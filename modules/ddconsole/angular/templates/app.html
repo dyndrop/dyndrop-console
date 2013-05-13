@@ -9,7 +9,7 @@
 
       <li class="nav-header">Production</li>
       <li class="active" ng-click="setActive($event)"><a href="" ng-click="setComponent('production-overview')">Overview</a></li>
-      <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('production-dns')">Domain names</a></li>
+      <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('production-domains')">Domain names</a></li>
 
       <li class="nav-header">Test</li>
       <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('test-overview')">Overview</a></li>
@@ -24,6 +24,7 @@
     <div ng-switch on="component" >
       <div ng-switch-when="production-overview" ng-include="angular_templates_path + 'partials/app-production-overview.html'"></div>
       <div ng-switch-when="configure" ng-include="angular_templates_path + 'partials/app-configure.html'"></div>
+      <div ng-switch-when="production-domains" ng-include="angular_templates_path + 'partials/app-production-domains.html'"></div>
       <!-- <div ng-switch-when="cm"></div> -->
       <div ng-switch-default><div class="span8">To be done.</div></div>
     </div>
