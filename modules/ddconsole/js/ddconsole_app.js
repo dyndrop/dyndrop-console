@@ -64,6 +64,36 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
       }
     }
 
+  }])
+.controller('PlanPaymentCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
+    var self = this;
+
+    $scope.paymill_token = {};
+    $scope.submitPayment = function () {
+      
+    
+      $('.submit-button').attr("disabled", "disabled");
+      paymill_token = $scope.paymill_token;
+      paymill.createToken(paymill_token, 
+        function(error, result) {
+          if (error) {
+            // Shows the errors
+            $(".payment-errors").text(error.apierror);
+            $(".submit-button").removeAttr("disabled");
+          } 
+          else {
+            var token = result.token;
+
+            $scope.app.update_plan({
+              name: "basic_plan",
+              paymill_token: token
+            }, function() {
+              // Success
+              $(".submit-button").removeAttr("disabled");  
+            });
+          }
+      });
+    }
   }]);
 
 

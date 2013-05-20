@@ -60,4 +60,36 @@ angular.module('ddconsole.widgets', [])
         });
       }
     }
+  })
+  .directive('paymillNumber', function() {
+    return {
+      require: 'ngModel',
+      link: function(scope, elm, attrs, ctrl) {
+        ctrl.$parsers.unshift(function(viewValue) {
+          if (paymill.validateCardNumber(viewValue)) {
+            ctrl.$setValidity('paymillNumber', true);
+            return viewValue;
+          } else {
+            ctrl.$setValidity('paymillNumber', false);
+            return undefined;
+          }
+        });
+      }
+    }
+  })
+  .directive('paymillCvc', function() {
+    return {
+      require: 'ngModel',
+      link: function(scope, elm, attrs, ctrl) {
+        ctrl.$parsers.unshift(function(viewValue) {
+          if (paymill.validateCvc(viewValue)) {
+            ctrl.$setValidity('paymillCvc', true);
+            return viewValue;
+          } else {
+            ctrl.$setValidity('paymillCvc', false);
+            return undefined;
+          }
+        });
+      }
+    }
   });

@@ -82,6 +82,7 @@ function ddconsole_console() {
   drupal_add_library('ddconsole', 'angular_ui_bootstrap');
   drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole.js');
   drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_app.js');
+  drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_settings.js');
   drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_widgets.js');
   drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_resource.js');
   drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_loading.js');

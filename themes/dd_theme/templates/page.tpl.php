@@ -22,17 +22,24 @@
 
       <?php if (!empty($primary_nav) || !empty($secondary_nav) || !empty($page['navigation'])): ?>
         <div class="nav-collapse collapse">
+
           <nav role="navigation">
-            <?php if (!empty($primary_nav)): ?>
-              <?php print render($primary_nav); ?>
-            <?php endif; ?>
-            <?php if (!empty($page['navigation'])): ?>
-              <?php print render($page['navigation']); ?>
-            <?php endif; ?>
-            <?php if (!empty($secondary_nav)): ?>
-              <?php print render($secondary_nav); ?>
-            <?php endif; ?>
+            <ul class="menu nav">
+              <li class="first last leaf">
+                <a href="/#" class="active">Home</a>
+              </li>
+            </ul>
+
+            <ul class="menu nav pull-right">
+              <li class="first leaf">
+                <a href="/#/settings">My account</a>
+              </li>
+              <li class="last leaf">
+                <a href="/user/logout">Log out</a>
+              </li>
+            </ul>
           </nav>
+
         </div>
       <?php endif; ?>
     </div>

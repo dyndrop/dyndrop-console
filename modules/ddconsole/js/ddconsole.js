@@ -1,9 +1,10 @@
-angular.module('ddconsole', ['ddconsole.app', 'ddconsole.resource', 'ddconsole.loading', 'ddconsole.widgets']).
+angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.resource', 'ddconsole.loading', 'ddconsole.widgets']).
   config(function($routeProvider) {
     $routeProvider.
       when('/', {controller: ListCtrl, templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'applist.html'}).
       when('/app/:appName', {controller: 'ViewCtrl', templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'app.html'}).
       when('/new', {controller:CreateCtrl, templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'app-new.html'}).
+      when('/settings', {controller: 'SettingsCtrl', templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'settings.html'}).
       otherwise({redirectTo:'/'});
   });
    

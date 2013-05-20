@@ -6,6 +6,38 @@
     <button type="button" class="btn" ng-click="update()">Rename</button>
   </form>
 
+
+<form id="payment-form" name="payment_form" ng-controller="PlanPaymentCtrl" ng-submit="submitPayment()">
+
+
+  <div class="control-group" ng-class="{error: payment_form.number.$invalid}">
+    <label>Card number</label>
+    <input name="number" type="text" size="20" ng-model="paymill_token.number" paymill-number />
+  </div>
+
+  <div class="control-group" ng-class="{error: payment_form.cvc.$invalid}">
+    <label>CVC</label>
+    <input name="cvc" type="text" size="4" ng-model="paymill_token.cvc" paymill-cvc /></div>
+
+  <div class="form-row"><label>Expiry date (MM/YYYY)</label>
+    <select ng-model="paymill_token.exp_month">
+      <option ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]" value="{{i}}">{{i}}</option>
+    </select>
+    <span></span>
+    <select ng-model="paymill_token.exp_year">
+      <option ng-repeat="i in [2013,2014,2015,2016,2017,2018,2019,2020]" value="{{i}}">{{i}}</option>
+    </select>
+  </div>
+
+  <button class="submit-button" type="submit">Submit</button>
+
+</form>
+
+  <script type="text/javascript">
+    var PAYMILL_PUBLIC_KEY = '794035449584e5c36e602491387e2c95';
+  </script>
+  <script type="text/javascript" src="https://bridge.paymill.com/"></script>
+
   <form>
     <legend>Danger zone</legend>
     <button type="button" class="btn btn-danger delete pull-right" ng-click="destroy()">Delete application</button>

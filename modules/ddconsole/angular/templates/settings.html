@@ -1,0 +1,22 @@
+<div data-loading></div>
+
+<div class="row">
+  <div class="span2">
+    <ul class="nav nav-list" navlist ng-controler="navCtrl">
+
+      <li class="nav-header">{{user.name}}</li>
+
+      <li class="active" ng-click="setActive($event)"><a href="" ng-click="setComponent('production-overview')">Profile</a></li>
+      <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('settings-billing')">Billing</a></li>
+
+
+    </ul>
+  </div>
+    <div ng-switch on="component" >
+      <div ng-switch-when="settings-billing" ng-include="angular_templates_path + 'partials/settings-billing.html'"></div>
+      <div ng-switch-when="configure" ng-include="angular_templates_path + 'partials/app-configure.html'"></div>
+      <div ng-switch-when="production-domains" ng-include="angular_templates_path + 'partials/app-production-domains.html'"></div>
+      <!-- <div ng-switch-when="cm"></div> -->
+      <div ng-switch-default><div class="span8">To be done.</div></div>
+    </div>
+</div>
