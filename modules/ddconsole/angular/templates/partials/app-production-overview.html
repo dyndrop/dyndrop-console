@@ -1,8 +1,22 @@
 <div class="span8">
   <legend>Source code</legend>
-  <div class="input-prepend">
+  <div class="input-prepend" ng-show="app.instances[0].code">
     <span class="add-on">SSH</span>
     <input type="text" ng-model="app.repo.url" readonly="readonly" size="60">
+  </div>
+
+  <div ng-show="app.instances[0].code">
+    <h5>Currently deployed:</h5>
+
+    <div class="media">
+      <a class="pull-left" href="#">
+        <img class="media-object" src="{{app.instances[0].code.author.avatar}}">
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading">{{app.instances[0].code.message}}</h4>
+        {{app.instances[0].code.author.name}} - {{app.instances[0].code.authored_date}}
+      </div>
+    </div>
   </div>
 </div>
 
