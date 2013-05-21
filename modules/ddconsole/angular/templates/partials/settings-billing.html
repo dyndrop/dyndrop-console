@@ -2,11 +2,11 @@
   <legend>Credit cards</legend>
   
 
-  <table ng-show="cards.length" class="table table-striped">
+  <table ng-show="cards.length" class="table table-striped cardlist">
     <thead>
       <tr>
         <th>Type</th>
-        <th>Last 4 digits</th>
+        <th>Number</th>
         <th>Expiration date</th>
         <th></th>
       </tr>
@@ -14,55 +14,75 @@
 
     <tr ng-repeat="card in cards">
       <td>
-        {{card.type}}
+        <div class="card-{{card.type}}-icon"></div>
       </td>
       <td>
-        {{card.last4}}
+        XXXX XXXX XXXX {{card.last4}}
       </td>
       <td>
         {{card.expire_month}}/{{card.expire_year}}
       </td>
       <td>
-        <button class="btn btn-danger" ng-click="removeCard(card)">Delete</button>
+        <button class="btn btn-danger" ng-click="removeCard(card)">Remove</button>
       </td>
     </tr>
   </table>
 
-  <div class="well">
 
-    <h4>Add new credit card</h4>
+  <form id="add-card-form" name="add_card_form" ng-submit="addCard()">
+    <div class="well">
 
-    <form id="payment-form" name="payment_form" ng-submit="addCard()">
+      <h4>Add new credit card</h4>
 
-      <div class="control-group" ng-class="{error: payment_form.number.$invalid}">
-        <label>Card number</label>
-        <input name="number" type="text" size="20" ng-model="paymill_token.number" paymill-number />
-      </div>
+        <div class="form-row control-group" ng-class="{error: add_card_form.number.$invalid}">
+          <label>Card number</label>
+          <input name="number" type="text" size="20" ng-model="paymill_token.number" paymill-number />
+        </div>
 
-      <div class="control-group" ng-class="{error: payment_form.cvc.$invalid}">
-        <label>CVC</label>
-        <input name="cvc" type="text" size="4" ng-model="paymill_token.cvc" paymill-cvc /></div>
+        <div class="form-row control-group" ng-class="{error: add_card_form.cvc.$invalid}">
+          <label>CVC</label>
+          <input name="cvc" type="text" size="4" ng-model="paymill_token.cvc" paymill-cvc /></div>
 
-      <div class="form-row"><label>Expiry date (MM/YYYY)</label>
-        <select ng-model="paymill_token.exp_month">
-          <option ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]" value="{{i}}">{{i}}</option>
-        </select>
-        <span></span>
-        <select ng-model="paymill_token.exp_year">
-          <option ng-repeat="i in [2013,2014,2015,2016,2017,2018,2019,2020]" value="{{i}}">{{i}}</option>
-        </select>
-      </div>
+        <div class="form-row"><label>Expiry date</label>
+          <select ng-model="paymill_token.exp_month">
+            <option value="1">01</option>
+            <option value="2">02</option>
+            <option value="3">03</option>
+            <option value="4">04</option>
+            <option value="5">05</option>
+            <option value="6">06</option>
+            <option value="7">07</option>
+            <option value="8">08</option>
+            <option value="9">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+          <span></span>
+          <select ng-model="paymill_token.exp_year">
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+          </select>
+        </div>
 
-      <button class="submit-button" type="submit">Submit</button>
+        <div class="form-row-submit">
+          <button class="btn" type="submit" ng-disabled="add_card_form.$pristine || add_card_form.$invalid || newCardIsInvalid()">Add</button>
+        </div>
 
-    </form>
 
-    <script type="text/javascript">
-      var PAYMILL_PUBLIC_KEY = '794035449584e5c36e602491387e2c95';
-    </script>
-    <script type="text/javascript" src="https://bridge.paymill.com/"></script>
+      <script type="text/javascript">
+        var PAYMILL_PUBLIC_KEY = '794035449584e5c36e602491387e2c95';
+      </script>
+      <script type="text/javascript" src="https://bridge.paymill.com/"></script>
 
-  </div>
+    </div>
+  </form>
 
 
 </div>

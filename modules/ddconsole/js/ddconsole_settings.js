@@ -20,7 +20,7 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
     $scope.angular_templates_path = DDConsoleConfig.angular_templates;
 
   }])
-  .controller('SettingsCardsCtrl', ['$scope', '$location', '$routeParams', 'UserCard', 'DDConsoleConfig', function ($scope, $location, $routeParams, UserCard, DDConsoleConfig) {
+  .controller('SettingsCardsCtrl', ['$scope', '$location', '$routeParams', 'UserCard', 'DDConsoleConfig', 'LoadingSrv', function ($scope, $location, $routeParams, UserCard, DDConsoleConfig, LoadingSrv) {
     var self = this;
 
     var refresh_card_infos = function() {
@@ -35,16 +35,35 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
     }
     refresh_card_infos();
 
-    $scope.paymill_token = {};
+
+
+    $scope.paymill_token = {
+      number: "",
+      cvc: "",
+      exp_year: new Date().getFullYear(),
+      exp_month: new Date().getMonth() + 1
+    };
+
+    $scope.newCardIsInvalid = function() {
+      //Checking Expiry (which is difficult with directive), and presence of number and cvc
+      return (
+        paymill.validateExpiry($scope.paymill_token.exp_month, $scope.paymill_token.exp_year) ==false || 
+        $scope.paymill_token.number.length == 0 ||
+        $scope.paymill_token.cvc.length == 0);
+    }
+
     $scope.addCard = function () {
-      $('.submit-button').attr("disabled", "disabled");
-      paymill_token = $scope.paymill_token;
-      paymill.createToken(paymill_token, 
+      //TODO: Later, move this DOM-altering bit of code
+      $('.form-row-submit button').attr("disabled", "disabled");
+
+      LoadingSrv.requestCount++;
+      paymill.createToken($scope.paymill_token, 
         function(error, result) {
+          LoadingSrv.requestCount--;
           if (error) {
-            // Shows the errors
-            $(".payment-errors").text(error.apierror);
-            $(".submit-button").removeAttr("disabled");
+            //Error string here: error.apierror
+            //TODO: Later, move this DOM-altering bit of code
+            $('.form-row-submit button').removeAttr("disabled");
           } 
           else {
             var token = result.token;
@@ -53,7 +72,13 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
               paymill_token: token
             }
             UserCard.save({user_id: $scope.user.email}, card, function(card) {
-              $(".submit-button").removeAttr("disabled");
+              //TODO: Later, move this DOM-altering bit of code
+              $('.form-row-submit button').removeAttr("disabled");
+              $scope.paymill_token.number = "";
+              $scope.paymill_token.cvc = "";
+              $scope.paymill_token.exp_year = new Date().getFullYear();
+              $scope.paymill_token.exp_month = new Date().getMonth() + 1;
+
               refresh_card_infos();
             });
           }

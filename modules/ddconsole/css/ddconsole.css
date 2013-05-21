@@ -1,0 +1,27 @@
+#add-card-form h4 {
+  margin-top: 0px;
+}
+
+#add-card-form .form-row {
+  float: left;
+  padding-right: 12px;
+}
+
+#add-card-form .control-group {
+  margin-bottom: 0px;
+}
+
+#add-card-form .form-row-submit {
+  clear: both;
+}
+
+table.cardlist .card-visa-icon {
+  background-image: url(../img/picto-visa.gif);
+  width: 32px;
+  height: 32px;
+  margin-top: -4px;
+}
+
+table.cardlist td {
+  vertical-align: middle;
+}
