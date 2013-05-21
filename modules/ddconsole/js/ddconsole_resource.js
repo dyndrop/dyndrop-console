@@ -27,21 +27,33 @@ angular.module('ddconsole.resource', ['ngResource'])
     return App;
   })
   .factory('User', function($resource) {
-    var App = $resource(Drupal.settings.dyndrop_console.server_url.replace(/:/g, '\\:') + '/1/users/:id/:action',
+    var User = $resource(Drupal.settings.dyndrop_console.server_url.replace(/:/g, '\\:') + '/1/users/:id/:action',
       {}, {
         update: { method: 'PUT' }
       }
     );
 
-    App.prototype.update = function(cb) {
+    User.prototype.update = function(cb) {
       return User.update({id: this.email},
         angular.extend({}, this), cb);
     };
 
-    App.prototype.destroy = function(cb) {
+    User.prototype.destroy = function(cb) {
       return User.remove({id: this.email}, cb);
     };
 
-    return App;
+    return User;
+  })
+  .factory('UserCard', function($resource) {
+    var UserCard = $resource(Drupal.settings.dyndrop_console.server_url.replace(/:/g, '\\:') + '/1/users/:user_id/cards/:id',
+      {}, {
+      }
+    );
+
+    UserCard.prototype.destroy = function(cb) {
+      return UserCard.remove({user_id: this.email}, cb);
+    };
+
+    return UserCard;
   });
 
