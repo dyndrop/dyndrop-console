@@ -64,7 +64,25 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
       }
     }
 
+  }])
+  .controller('ViewConfigureProjectCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
+    var self = this;
+
+    $scope.updatePlan = function(plan_name) {
+      $scope.app.update_plan({
+          name: plan_name
+        }, function() {
+          // Success
+           $scope.app.plan = plan_name;
+        });
+    }
+
+    
+
   }]);
+
+
+
 
 
 })(jQuery);

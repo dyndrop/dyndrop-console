@@ -1,11 +1,45 @@
-<div class="span8">
-  <form>
+<div class="span8" ng-controller="ViewConfigureProjectCtrl">
+
+  <form class="form-inline">
     <legend>Settings</legend>
     <label>Application name</label>
     <input type="text" ng-model="app.label" />
     <button type="button" class="btn" ng-click="update()">Rename</button>
   </form>
 
+
+  <form>
+    <legend>Plan</legend>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Plan</th>
+          <th>Price</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Small</td>
+          <td>€30/month</td>
+          <td>
+            <button class="btn" ng-show="app.plan == 'free'" ng-click="updatePlan('small')">Upgrade</button>
+            <div ng-show="app.plan == 'small'">Your plan</div>
+          </td>
+        </tr>
+        <tr>
+          <td>Free</td>
+          <td>€0/month</td>
+          <td>
+            <button class="btn" ng-show="app.plan == 'small'" ng-click="updatePlan('free')">Downgrade</button>
+            <div ng-show="app.plan == 'free'">Your plan</div>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </form>
 
   <form>
     <legend>Danger zone</legend>
