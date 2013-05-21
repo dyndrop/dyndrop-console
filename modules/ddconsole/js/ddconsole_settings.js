@@ -23,7 +23,7 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
   .controller('SettingsCardsCtrl', ['$scope', '$location', '$routeParams', 'UserCard', 'DDConsoleConfig', 'LoadingSrv', function ($scope, $location, $routeParams, UserCard, DDConsoleConfig, LoadingSrv) {
     var self = this;
 
-    var refresh_card_infos = function() {
+    refresh_card_infos = function() {
       UserCard.query({user_id: "me"}, function(cards) {
         self.original = cards;
 
@@ -35,6 +35,18 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
     }
     refresh_card_infos();
 
+    $scope.$on('userCardAdded', function(mass) {
+      refresh_card_infos();
+    });
+
+    $scope.removeCard = function(card) {
+      UserCard.delete({user_id: $scope.user.email, id: card.id}, {}, function() {
+        refresh_card_infos();
+      });
+    }
+  }])
+  .controller('SettingsCardAddCtrl', ['$scope', '$location', '$routeParams', 'UserCard', 'DDConsoleConfig', 'LoadingSrv', function ($scope, $location, $routeParams, UserCard, DDConsoleConfig, LoadingSrv) {
+    var self = this;
 
 
     $scope.paymill_token = {
@@ -71,7 +83,7 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
             var card = {
               paymill_token: token
             }
-            UserCard.save({user_id: $scope.user.email}, card, function(card) {
+            UserCard.save({user_id: "me"}, card, function(card) {
               //TODO: Later, move this DOM-altering bit of code
               $('.form-row-submit button').removeAttr("disabled");
               $scope.paymill_token.number = "";
@@ -79,19 +91,13 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
               $scope.paymill_token.exp_year = new Date().getFullYear();
               $scope.paymill_token.exp_month = new Date().getMonth() + 1;
 
-              refresh_card_infos();
+              $scope.$emit('userCardAdded');
             });
           }
       });
     }
 
-    $scope.removeCard = function(card) {
-      UserCard.delete({user_id: $scope.user.email, id: card.id}, {}, function() {
-        refresh_card_infos();
-      });
-    }
-
-
   }]);
+
 
   })(jQuery);

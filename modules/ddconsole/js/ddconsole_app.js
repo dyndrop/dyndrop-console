@@ -65,16 +65,36 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
     }
 
   }])
-  .controller('ViewConfigureProjectCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
+  .controller('ViewConfigureProjectCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', 'UserCard', function ($scope, $location, $routeParams, App, DDConsoleConfig, UserCard) {
     var self = this;
 
-    $scope.updatePlan = function(plan_name) {
+    var plan_register = function(plan_name) {
+      //Register to the plan
       $scope.app.update_plan({
           name: plan_name
         }, function() {
           // Success
            $scope.app.plan = plan_name;
         });
+    }
+
+    $scope.$on('userCardAdded', function(mass) {
+      $('#add-card-modal').modal('hide');
+      plan_register($scope.plan_being_chosen);
+    });
+
+    $scope.updatePlan = function(plan_name) {
+      //Check that the user have a credit card
+      UserCard.query({user_id: "me"}, function(cards) {
+        if(cards.length == 0) {
+          //Show the card-adding popup
+          $scope.plan_being_chosen = plan_name;
+          $('#add-card-modal').modal('show');
+        }
+        else {
+          plan_register(plan_name);
+        }
+      });
     }
 
     
