@@ -26,13 +26,13 @@
           <nav role="navigation">
             <ul class="menu nav">
               <li class="first last leaf">
-                <a href="/#" class="active">Home</a>
+                <a href="/" class="active">Home</a>
               </li>
             </ul>
 
             <ul class="menu nav pull-right">
               <li class="first leaf">
-                <a href="/#/settings">My account</a>
+                <a href="/settings">My account</a>
               </li>
               <li class="last leaf">
                 <a href="/user/logout">Log out</a>
@@ -68,7 +68,7 @@
       <?php if (!empty($page['highlighted'])): ?>
         <div class="highlighted hero-unit"><?php print render($page['highlighted']); ?></div>
       <?php endif; ?>
-      <?php if (!empty($breadcrumb)): print $breadcrumb; endif;?>
+      
       <a id="main-content"></a>
       <?php print render($title_prefix); ?>
 <!--       <?php if (!empty($title)): ?>

@@ -90,6 +90,7 @@ function ddconsole_console() {
   drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_widgets.js');
   drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_resource.js');
   drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_loading.js');
+  drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_auth.js');
   drupal_add_js(array(
     'dyndrop_console' => array(
       'server_url' => variable_get('pxcf_client_api_endpoint', ''),

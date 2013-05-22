@@ -351,6 +351,7 @@ function dyndrop_console_install() {
 
   //In case of 403, go to login page (duh)
   variable_set('site_403', 'user');
+  variable_set('site_404', 'console');
 
   //JQuery update to 1.8
   variable_set('jquery_update_jquery_version', '1.8');

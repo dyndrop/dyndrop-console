@@ -1,11 +1,15 @@
-angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.resource', 'ddconsole.loading', 'ddconsole.widgets']).
-  config(function($routeProvider) {
+angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.resource', 'ddconsole.loading', 'ddconsole.widgets', 'ddconsole.auth']).
+  config(function($routeProvider, $locationProvider) {
     $routeProvider.
       when('/', {controller: ListCtrl, templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'applist.html'}).
       when('/app/:appName', {controller: 'ViewCtrl', templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'app.html'}).
       when('/new', {controller:CreateCtrl, templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'app-new.html'}).
       when('/settings', {controller: 'SettingsCtrl', templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'settings.html'}).
+      when('/oauth/github/callback', {controller: 'AuthOauthGithubCallbackCtrl', template: '<div></div>'}).
       otherwise({redirectTo:'/'});
+
+    $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix = '!'
   });
    
  
