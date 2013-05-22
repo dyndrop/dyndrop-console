@@ -25,3 +25,16 @@ table.cardlist .card-visa-icon {
 table.cardlist td {
   vertical-align: middle;
 }
+
+
+#external-uri-form {
+  margin-bottom: 0px;
+}
+
+table#uris-list td {
+  vertical-align: middle;
+}
+
+table#uris-list .dns-check-invalid i.icon-remove {
+  margin-right:8px;
+}

@@ -1,42 +1,74 @@
 <div class="span8" ng-controller="ViewProductionDomainsCtrl">
-  <legend>Domain names</legend>
   
-    <strong>Dyndrop domain name: </strong>
-    <a href="http://{{app.instances[0].uris[0]}}/" target="_blank">{{app.instances[0].uris[0]}}</a>
   
-  <br />
-  <br />
 
-  <div style="padding-bottom:4px"><strong>Your own domain names: </strong></div>
+  <table id="uris-list" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Domain</th>
+        <th>DNS Check</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="http://{{app.instances[0].uris[0]}}/" target="_blank">{{app.instances[0].uris[0]}}</a></td>
+        <td><i class="icon-ok"></i></td>
+        <td>Default domain</td>
+      </tr>
+      <tr ng-repeat="uri in app.instances[0].external_uris" ng-class="{error: dns_checks[uri] == false}">
+        <td>
+          <a href="http://{{uri}}" target="_blank"><span>{{uri}}</span></a> 
+        </td>
+        <td>
+          <div ng-show="dns_checks[uri] == undefined">Loading...</div>
+          <i class="icon-ok" ng-show="dns_checks[uri]"></i>
+          <div class="dns-check-invalid" ng-show="dns_checks[uri] == false"><i class="icon-remove"></i><a href="#external-uri-help-modal" class="btn btn-small" data-toggle="modal">Help!</a></div>
+        </td>
+        <td>
+          <button class="btn btn-danger btn-small" ng-click="removeExternalUri(this.uri)">Remove</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-  <ul ng-show="app.instances[0].external_uris.length">
-    <li ng-repeat="uri in app.instances[0].external_uris">
-      <a href="http://{{uri}}" target="_blank"><span>{{uri}}</span></a> <i class="icon-remove" ng-click="removeExternalUri(this.uri)"></i>
-    </li>
-  </ul>
 
-  <form ng-submit="addExternalUri()" name="externalUriForm" class="form-inline">
+  <form id="external-uri-form" ng-submit="addExternalUri()" name="externalUriForm" class="form-inline">
     <div class="control-group url" ng-class="{error: externalUriForm.uri.$invalid}" style="display:inline">
       <div class="input-prepend">
       <span class="add-on">http://</span>
         <input type="text" ng-model="new_external_uri" size="30"
-             placeholder="add your own domain here" name="uri" domain-name>
+             placeholder="add your own domain here" name="uri" domain-name ng-disabled="app.plan == 'free'">
       </div>
     </div>
-    <input class="btn-primary" type="submit" value="add">
+    <input class="btn-primary" type="submit" value="add" ng-disabled="app.plan == 'free'">
   </form>
+  <div ng-show="app.plan == 'free'">Your need to <a href="" ng-click="setComponent('configure')">upgrade your plan</a> to use your own domain names!</div>
 
-  <div class="well">
-    <strong>IMPORTANT:</strong> To add your own domain name, you need to:
-    <ol>
-      <li>Add it above.</li>
-      <li>Add a CNAME record at your domain name provider (e.g. GoDaddy, Gandi, ..).</li>
-    </ol>
-    A CNAME record act as a web redirection, which will link your domain name(s) to {{app.instances[0].uris[0]}}. <br />
-    If you want to redirect www.example.com to this website, you will need to add the following CNAME record:<br />
-    <strong>name:</strong> www <br />
-    <strong>value:</strong> {{app.instances[0].uris[0]}}.<br /><br />
-    More help <a href="http://groups.gandi.net/en/topic/gandi.en.domain/4276">here</a>.
+  <!-- Modal -->
+  <div id="external-uri-help-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="externalUriHelpLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="externalUriHelpLabel">Adding your own domain name</h3>
+    </div>
+    <div class="modal-body">
+      <p>
+        <strong>IMPORTANT:</strong> To add your own domain name, you also need to add a <strong>CNAME record</strong> at your domain name provider (e.g. GoDaddy, Gandi, ..).
+      </p>
+      <p>
+        If you want to redirect www.example.com to this website, you will need to add the following CNAME record:<br />
+      name: <strong>www</strong> <br />
+      value: <strong>{{app.instances[0].uris[0]}}.</strong>
+      </p>
+      <p>
+        After having done so, you will have to wait up to a few hours while your CNAME entry is propagating.
+      </p>
+      </div>
+    <div class="modal-footer">
+      <a href="http://groups.gandi.net/en/topic/gandi.en.domain/4276" target="_blank" class="btn">I need more help!</a>
+      <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Ok</button>
+    </div>
   </div>
+
 
 </div>

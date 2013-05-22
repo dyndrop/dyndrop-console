@@ -7,18 +7,23 @@ angular.module('ddconsole.resource', ['ngResource'])
     var App = $resource(Drupal.settings.dyndrop_console.server_url.replace(/:/g, '\\:') + '/1/apps/:id/:action',
       {}, {
         update: { method: 'PUT' },
-        update_plan: { method: 'PUT' }
+        update_plan: { method: 'PUT' },
+        dns_check: { method: 'GET', isArray: true }
       }
     );
 
-    App.prototype.update = function(cb) {
+    App.prototype.update = function(cb, errorcb) {
       return App.update({id: this.name},
-        angular.extend({}, this), cb);
+        angular.extend({}, this), cb, errorcb);
     };
 
     App.prototype.update_plan = function(data, cb) {
       return App.update_plan({id: this.name, action: "plan"}, data, cb);
     }
+
+    App.prototype.dns_check = function(cb) {
+      return App.dns_check({id: this.name, action: "dns_check"}, cb);
+    };
 
     App.prototype.destroy = function(cb) {
       return App.remove({id: this.name}, cb);

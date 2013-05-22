@@ -48,11 +48,29 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
 .controller('ViewProductionDomainsCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
     var self = this;
 
+    var dns_check = function() {
+      $scope.app.dns_check(function(data) {
+          $scope.dns_checks = [];
+          for(var i = 0; i < data.length; i++) {
+            $scope.dns_checks[data[i].uri] = data[i].check;
+          }
+        });
+    }
+
     $scope.addExternalUri = function () {
       if($scope.new_external_uri != undefined) {
-        $scope.app.instances[0].external_uris.push($scope.new_external_uri);
+        var new_external_uri = $scope.new_external_uri;
         $scope.new_external_uri = '';
-        $scope.update();
+        $scope.app.instances[0].external_uris.push(new_external_uri);
+        $scope.app.update(function() {
+            dns_check();
+          }, 
+          function() {
+            var index = $.inArray(new_external_uri, $scope.app.instances[0].external_uris);
+            if(index >= 0) {
+              $scope.app.instances[0].external_uris.splice(index);
+            }
+        });
       }
     }
 
@@ -60,9 +78,16 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
       var index = $scope.app.instances[0].external_uris.indexOf(uri);
       if(index >= 0) {
         $scope.app.instances[0].external_uris.splice(index, 1);
-        $scope.update();
+        $scope.app.update();
       }
     }
+
+    $scope.$watch('app', function(newValue, oldValue) {
+      if(newValue != undefined) {
+        dns_check();
+      }
+    });
+    
 
   }])
   .controller('ViewConfigureProjectCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', 'UserCard', function ($scope, $location, $routeParams, App, DDConsoleConfig, UserCard) {
@@ -78,15 +103,10 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
         });
     }
 
-    $scope.$on('userCardAdded', function(mass) {
-      $('#add-card-modal').modal('hide');
-      plan_register($scope.plan_being_chosen);
-    });
-
     $scope.updatePlan = function(plan_name) {
       //Check that the user have a credit card
       UserCard.query({user_id: "me"}, function(cards) {
-        if(cards.length == 0) {
+        if(cards.length == 0 && plan_name != "free") {
           //Show the card-adding popup
           $scope.plan_being_chosen = plan_name;
           $('#add-card-modal').modal('show');
@@ -97,7 +117,10 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
       });
     }
 
-    
+    $scope.$on('userCardAdded', function(mass) {
+      $('#add-card-modal').modal('hide');
+      plan_register($scope.plan_being_chosen);
+    });
 
   }]);
 
