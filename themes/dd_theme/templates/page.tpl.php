@@ -35,7 +35,7 @@
                 <a href="/settings">My account</a>
               </li>
               <li class="last leaf">
-                <a href="/user/logout">Log out</a>
+                <a href="/logout">Log out</a>
               </li>
             </ul>
           </nav>

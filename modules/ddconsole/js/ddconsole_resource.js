@@ -1,7 +1,10 @@
+(function($) {
 
 angular.module('ddconsole.resource', ['ngResource'])
   .config(['$httpProvider', function ($httpProvider) {
-    $httpProvider.defaults.headers.common['Authorization'] = "Bearer " + Drupal.settings.dyndrop_console.auth_token;
+    if($.cookie('dyndrop-token')) {
+      $httpProvider.defaults.headers.common['Authorization'] = "Bearer " + $.cookie('dyndrop-token');
+    }
   }])
   .factory('App', function($resource) {
     var App = $resource(Drupal.settings.dyndrop_console.server_url.replace(/:/g, '\\:') + '/1/apps/:id/:action',
@@ -32,11 +35,16 @@ angular.module('ddconsole.resource', ['ngResource'])
     return App;
   })
   .factory('User', function($resource) {
-    var User = $resource(Drupal.settings.dyndrop_console.server_url.replace(/:/g, '\\:') + '/1/users/:id/:action',
+    var User = $resource(Drupal.settings.dyndrop_console.server_url.replace(/:/g, '\\:') + '/1/users/:id/:action/:param1/:param2',
       {}, {
+        oauth_github_callback: { method: 'POST', params: {action: "oauth", param1: "github", param2: "callback"} },
         update: { method: 'PUT' }
       }
     );
+
+    User.prototype.oauth_github_callback = function(data, cb) {
+      return User.oauth_github_callback({id: this.name, action: "oauth", param1: "github", param2: "callback"}, data, cb);
+    }
 
     User.prototype.update = function(cb) {
       return User.update({id: this.email},
@@ -62,3 +70,5 @@ angular.module('ddconsole.resource', ['ngResource'])
     return UserCard;
   });
 
+
+})(jQuery);

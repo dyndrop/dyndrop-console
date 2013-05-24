@@ -4,7 +4,6 @@
  * Implementation of hook_init()
  */
 function ddconsole_init() {
-
 }
 
 /**
@@ -28,11 +27,11 @@ function ddconsole_menu() {
   $items['console'] = array(
     'title' => 'Content',
     'page callback' => 'ddconsole_console',
-    'access arguments' => array('access dyndrop console'),
+    'access arguments' => array('access content'),
   );
   $items['component'] = array(
     'page callback' => 'ddconsole_console_angularjs_components',
-    'access arguments' => array('access dyndrop console'),
+    'access arguments' => array('access content'),
   );
 
   return $items;
@@ -60,6 +59,7 @@ function ddconsole_library() {
     'js' => array(
       drupal_get_path('module', 'ddconsole') . '/libraries/angular.js' => array(),
       drupal_get_path('module', 'ddconsole') . '/libraries/angular-resource.js' => array(),
+      drupal_get_path('module', 'ddconsole') . '/libraries/angular-cookies.js' => array(),
     ),
   );
 
@@ -72,6 +72,15 @@ function ddconsole_library() {
     ),
   );
 
+  $libraries['jquery.cookies'] = array(
+    'title' => 'JQuery cookies',
+    'website' => 'https://github.com/carhartl/jquery-cookie',
+    'version' => 'xx',
+    'js' => array(
+      drupal_get_path('module', 'ddconsole') . '/libraries/jquery-cookies.js' => array(),
+    ),
+  );
+
   return $libraries;
 }
 
@@ -81,9 +90,16 @@ function ddconsole_library() {
 function ddconsole_console() {
   $output = "";
 
+  // if(arg(0) != "user") {
+  //   if(drupal_is_front_page() == false) {
+  //     drupal_goto('<front>');
+  //   }
+  // }
+
   drupal_add_css(drupal_get_path('module', 'ddconsole') . '/css/ddconsole.css');
   drupal_add_library('ddconsole', 'angularjs');
   drupal_add_library('ddconsole', 'angular_ui_bootstrap');
+  drupal_add_library('ddconsole', 'jquery.cookies');
   drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole.js');
   drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_app.js');
   drupal_add_js(drupal_get_path('module', 'ddconsole') . '/js/ddconsole_settings.js');
@@ -94,7 +110,7 @@ function ddconsole_console() {
   drupal_add_js(array(
     'dyndrop_console' => array(
       'server_url' => variable_get('pxcf_client_api_endpoint', ''),
-      'auth_token'=> $_SESSION['ddclient_token'],
+      'github_client_id' => variable_get('github_client_id', ''),
       'default_cf_dns_suffix' => _ddconsole_get_default_cf_dns_suffix(),
       'angular_templates' => '/component/',
       )

@@ -91,16 +91,6 @@ function dyndrop_console_install() {
       'cache' => -1,
     ),
     array(
-      'module' => 'user',
-      'delta' => 'login',
-      'theme' => $default_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'sidebar_first',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
       'module' => 'system',
       'delta' => 'help',
       'theme' => $default_theme,
@@ -127,16 +117,6 @@ function dyndrop_console_install() {
       'status' => 1,
       'weight' => 0,
       'region' => 'help',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'user',
-      'delta' => 'login',
-      'theme' => $admin_theme,
-      'status' => 1,
-      'weight' => 10,
-      'region' => 'content',
       'pages' => '',
       'cache' => -1,
     ),
@@ -349,8 +329,7 @@ function dyndrop_console_install() {
   //Default page, the console page
   variable_set('site_frontpage', 'console');
 
-  //In case of 403, go to login page (duh)
-  variable_set('site_403', 'user');
+  variable_set('site_403', 'console');
   variable_set('site_404', 'console');
 
   //JQuery update to 1.8

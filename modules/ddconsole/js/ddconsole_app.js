@@ -14,9 +14,6 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
 
     };
   })
-  .factory('DDConsoleConfig', function () {
-    return Drupal.settings.dyndrop_console;
-  })
   .controller('ViewCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
     var self = this;
    

@@ -1,3 +1,5 @@
+(function($) {
+
 angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.resource', 'ddconsole.loading', 'ddconsole.widgets', 'ddconsole.auth']).
   config(function($routeProvider, $locationProvider) {
     $routeProvider.
@@ -6,10 +8,24 @@ angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.r
       when('/new', {controller:CreateCtrl, templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'app-new.html'}).
       when('/settings', {controller: 'SettingsCtrl', templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'settings.html'}).
       when('/oauth/github/callback', {controller: 'AuthOauthGithubCallbackCtrl', template: '<div></div>'}).
+      when('/logout', {controller: 'AuthLogoutCtrl', template: '<div></div>'}).
       otherwise({redirectTo:'/'});
 
     $locationProvider.html5Mode(true);
     $locationProvider.hashPrefix = '!'
+  }).
+  factory('DDConsoleConfig', function () {
+    return Drupal.settings.dyndrop_console;
+  }).
+  run(function($location, DDConsoleConfig, AuthToken) {
+
+    //If unauthorized, redirect to auth
+    if($.cookie('dyndrop-token') == undefined) {
+      if($location.path() != '/oauth/github/callback') {
+        window.location = "https://github.com/login/oauth/authorize?client_id=" + DDConsoleConfig.github_client_id
+      }
+    }
+    
   });
    
  
@@ -58,3 +74,5 @@ function EditCtrl($scope, $location, $routeParams, App) {
   };
 }
 
+
+})(jQuery);
