@@ -3,13 +3,12 @@
 
 <table class="table table-striped apps">
   <thead>
-    <tr><th>Name</th><th>Install URL</th><th>URL</th><th>Actions</th></tr>
+    <tr><th>Name</th><th>URL</th><th>Actions</th></tr>
   </thead>
   <tbody>
 
     <tr ng-repeat="app in apps">
       <td>{{app.label}}</td>
-      <td><a href="http://{{app.instances[0].uris[0]}}/install.php" target="_blank">http://{{app.instances[0].uris[0]}}/install.php</a></td>
       <td><a href="http://{{app.instances[0].uris[0]}}" target="_blank">http://{{app.instances[0].uris[0]}}</a></td>
       <td><a class="btn" href="/app/{{app.name}}">Manage</a></td>
     </tr>
