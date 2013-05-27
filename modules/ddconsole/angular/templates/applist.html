@@ -1,5 +1,5 @@
 
-<h2>My Github projects</h2>
+<h2>My GitHub projects</h2>
 
 <table class="table table-striped apps">
   <thead>
@@ -9,10 +9,12 @@
 
     <tr ng-repeat="repo in repos">
       <td>{{repo.location}}</td>
-      <td><a ng-show="repo.app" href="http://{{repo.app.instances[0].uris[0]}}" target="_blank">http://{{repo.app.instances[0].uris[0]}}</a></td>
       <td>
-        <a class="btn" href="/repo/{{repo.location}}/host" ng-show="repo.app == null">Host</a>
-        <a class="btn" href="/app/{{repo.app.name}}" ng-show="repo.app">Manage</a>
+        <a ng-show="repo.app" href="http://{{repo.app.instances[0].uris[0]}}" target="_blank">http://{{repo.app.instances[0].uris[0]}}</a>
+        <a ng-show="repo.app == null" class="btn" href="/repo/{{repo.location}}/host">Host</a>
+      </td>
+      <td>
+        <a ng-show="repo.app" class="btn" href="/app/{{repo.app.name}}">Manage</a>
       </td>
     </tr>
 
