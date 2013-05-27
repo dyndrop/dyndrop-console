@@ -34,6 +34,32 @@ angular.module('ddconsole.resource', ['ngResource'])
 
     return App;
   })
+  .factory('Repo', function($resource) {
+    var Repo = $resource(Drupal.settings.dyndrop_console.server_url.replace(/:/g, '\\:') + '/1/repos/:id/:action',
+      {}, {
+        update: { method: 'PUT' },
+      }
+    );
+
+    Repo.prototype.update = function(cb, errorcb) {
+      return Repo.update({id: this.name},
+        angular.extend({}, this), cb, errorcb);
+    };
+
+    Repo.prototype.update_plan = function(data, cb) {
+      return Repo.update_plan({id: this.name, action: "plan"}, data, cb);
+    }
+
+    Repo.prototype.dns_check = function(cb) {
+      return Repo.dns_check({id: this.name, action: "dns_check"}, cb);
+    };
+
+    Repo.prototype.destroy = function(cb) {
+      return Repo.remove({id: this.name}, cb);
+    };
+
+    return Repo;
+  })
   .factory('User', function($resource) {
     var User = $resource(Drupal.settings.dyndrop_console.server_url.replace(/:/g, '\\:') + '/1/users/:id/:action/:param1/:param2',
       {}, {

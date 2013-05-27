@@ -1,5 +1,5 @@
 
-<h2>My apps</h2>
+<h2>My Github projects</h2>
 
 <table class="table table-striped apps">
   <thead>
@@ -7,10 +7,13 @@
   </thead>
   <tbody>
 
-    <tr ng-repeat="app in apps">
-      <td>{{app.label}}</td>
-      <td><a href="http://{{app.instances[0].uris[0]}}" target="_blank">http://{{app.instances[0].uris[0]}}</a></td>
-      <td><a class="btn" href="/app/{{app.name}}">Manage</a></td>
+    <tr ng-repeat="repo in repos">
+      <td>{{repo.location}}</td>
+      <td><a ng-show="repo.app" href="http://{{repo.app.instances[0].uris[0]}}" target="_blank">http://{{repo.app.instances[0].uris[0]}}</a></td>
+      <td>
+        <a class="btn" href="/repo/{{repo.location}}/host" ng-show="repo.app == null">Host</a>
+        <a class="btn" href="/app/{{repo.app.name}}" ng-show="repo.app">Manage</a>
+      </td>
     </tr>
 
   </tbody>
@@ -18,4 +21,4 @@
 
 <div data-loading></div>
 
-<a href="/new" role="button" class="btn">Create new app</a>
+<!-- <a href="/new" role="button" class="btn">Create new app</a> -->

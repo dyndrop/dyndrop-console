@@ -14,6 +14,29 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
 
     };
   })
+  .controller('CreateFromRepoCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
+    var self = this;
+   
+    $scope.repo_location = $routeParams.repo_org + "/" + $routeParams.repo_name;
+
+    // Initiate basic App object
+    $scope.app = new App();
+    app_instance = { "uris": [] };
+    $scope.app.instances = [];
+    $scope.app.instances[0] = app_instance;
+
+    $scope.app.repo = {
+      provider: "github",
+      location: $scope.repo_location
+    }
+
+    $scope.save = function() {
+      App.save($scope.app, function(app) {
+        $location.path('/');
+      });
+    }
+
+  }])
   .controller('ViewCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
     var self = this;
    

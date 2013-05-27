@@ -1,0 +1,33 @@
+<div data-loading></div>
+
+<h2>Host your Github project</h2>
+
+<form name="appEditForm">
+  <div>
+    <label>Github project</label>
+    <input type="text" disabled="disabled" value="https://github.com/{{repo_location}}" size="42" />
+  </div>
+
+  <div class="control-group" ng-class="{error: appEditForm.label.$invalid}">
+    <label>Name</label>
+    <input type="text" name="label" ng-model="app.label" required>
+    <span ng-show="appEditForm.label.$error.required" class="help-inline">
+        Required</span>
+  </div>
+ 
+  <div class="control-group url" ng-class="{error: appEditForm.uri.$invalid}">
+    <label>URL</label>
+    <div suffixed-url-field="true" name="uri" ng-model="app.instances[0].uris[0]" required>
+    </div>
+
+    <span ng-show="appEditForm.uri.$error.required" class="help-inline">
+        Required</span>
+  </div>
+ 
+  <br>
+  <a href="/" class="btn">Cancel</a>
+  <button ng-click="save()" ng-disabled="isClean() || appEditForm.$invalid"
+          class="btn btn-primary">Save</button>
+  <button ng-click="destroy()"
+          ng-show="app.id" class="btn btn-danger">Delete</button>
+</form>
