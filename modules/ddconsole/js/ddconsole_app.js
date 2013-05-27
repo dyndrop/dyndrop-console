@@ -14,6 +14,17 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
 
     };
   })
+  .controller('ListCtrl', ['$scope', '$location', '$routeParams', 'Repo', 'User', function ($scope, $location, $routeParams, Repo, User) {
+    var self = this;
+   
+    $scope.repos = Repo.query();
+
+    User.get({id: "me"}, function(user) {
+      self.original = user;
+      $scope.user = new User(self.original);
+    });
+
+  }])
   .controller('CreateFromRepoCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
     var self = this;
    

@@ -1,26 +1,41 @@
 
 <h2>My GitHub projects</h2>
 
-<table class="table table-striped apps">
-  <thead>
-    <tr><th>Name</th><th>URL</th><th>Actions</th></tr>
-  </thead>
-  <tbody>
+<div class="row">
+  <div class="span2">
+    <div>
+      <img ng-show="user.avatar_url" src="{{user.avatar_url}}&s=420" class="img-polaroid" />
+    </div>
+    <div>
+      <h3>{{user.name}}</h3>
+    </div>
+  </div>
 
-    <tr ng-repeat="repo in repos">
-      <td>{{repo.location}}</td>
-      <td>
-        <a ng-show="repo.app" href="http://{{repo.app.instances[0].uris[0]}}" target="_blank">http://{{repo.app.instances[0].uris[0]}}</a>
-        <a ng-show="repo.app == null" class="btn" href="/repo/{{repo.location}}/host">Host</a>
-      </td>
-      <td>
-        <a ng-show="repo.app" class="btn" href="/app/{{repo.app.name}}">Manage</a>
-      </td>
-    </tr>
+  <div class="span8">
 
-  </tbody>
-</table>
+    <table class="table table-striped apps">
+      <thead>
+        <tr><th>Name</th><th>URL</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
 
-<div data-loading></div>
+        <tr ng-repeat="repo in repos">
+          <td>{{repo.location}}</td>
+          <td>
+            <a ng-show="repo.app" href="http://{{repo.app.instances[0].uris[0]}}" target="_blank">http://{{repo.app.instances[0].uris[0]}}</a>
+            <a ng-show="repo.app == null" class="btn" href="/repo/{{repo.location}}/host">Host</a>
+          </td>
+          <td>
+            <a ng-show="repo.app" class="btn" href="/app/{{repo.app.name}}">Manage</a>
+          </td>
+        </tr>
 
-<!-- <a href="/new" role="button" class="btn">Create new app</a> -->
+      </tbody>
+    </table>
+
+    <div data-loading></div>
+
+    <!-- <a href="/new" role="button" class="btn">Create new app</a> -->
+
+  </div>
+</div>
