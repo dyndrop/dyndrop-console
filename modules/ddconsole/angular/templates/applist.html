@@ -1,5 +1,5 @@
 
-<h2>My GitHub projects</h2>
+
 
 <div class="row">
   <div class="span2">
@@ -13,27 +13,31 @@
 
   <div class="span8">
 
-    <table class="table table-striped apps">
-      <thead>
-        <tr><th>Name</th><th>URL</th><th>Actions</th></tr>
-      </thead>
-      <tbody>
+    <table ng-show="repos.length > 0" class="table repos">
+      
 
-        <tr ng-repeat="repo in repos">
-          <td>{{repo.location}}</td>
+        <tr ng-repeat="repo in repos | orderBy: ['provider_data.language != \'PHP\'', '!app']" ng-class="{hosted: repo.app}">
           <td>
-            <a ng-show="repo.app" href="http://{{repo.app.instances[0].uris[0]}}" target="_blank">http://{{repo.app.instances[0].uris[0]}}</a>
-            <a ng-show="repo.app == null" class="btn" href="/repo/{{repo.location}}/host">Host</a>
+            <div ng-show="repo.app == null" class="title">
+              <a ng-show="repo.provider_data.language == 'PHP'" href="/repo/{{repo.location}}/host">{{repo.location.split('/')[1]}}</a>
+              <span ng-show="repo.provider_data.language != 'PHP'" href="/repo/{{repo.location}}/host">{{repo.location.split('/')[1]}}</span>
+            </div>
+            <div ng-show="repo.app" class="title">
+              <a href="/app/{{repo.app.name}}">{{repo.location.split('/')[1]}}</a> hosted on <a ng-show="repo.app" href="http://{{repo.app.instances[0].uris[0]}}" target="_blank">{{repo.app.instances[0].uris[0]}}</a>
+            </div>
+            <div class="description">
+              {{repo.provider_data.description}}
+            </div>
           </td>
-          <td>
-            <a ng-show="repo.app" class="btn" href="/app/{{repo.app.name}}">Manage</a>
+          <td class="actions">
+            <a ng-show="repo.app" class="btn" href="http://{{repo.app.instances[0].uris[0]}}" target="_blank">Go to website</a>
+            <a ng-show="repo.app == null && repo.provider_data.language == 'PHP'" class="btn" href="/repo/{{repo.location}}/host">Host</a>
+            <span ng-show="repo.app == null && repo.provider_data.language != 'PHP'" class="unsupported-language">Unsupported language ({{repo.provider_data.language}})</span>
           </td>
         </tr>
 
       </tbody>
     </table>
-
-    <div data-loading></div>
 
     <!-- <a href="/new" role="button" class="btn">Create new app</a> -->
 

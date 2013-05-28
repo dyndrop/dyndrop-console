@@ -25,7 +25,7 @@ function ddconsole_permission() {
  */
 function ddconsole_menu() {
   $items['console'] = array(
-    'title' => 'Content',
+    'title' => 'Console',
     'page callback' => 'ddconsole_console',
     'access arguments' => array('access content'),
   );

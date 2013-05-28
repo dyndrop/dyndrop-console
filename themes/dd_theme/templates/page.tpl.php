@@ -24,14 +24,14 @@
         <div class="nav-collapse collapse">
 
           <nav role="navigation">
-            <ul class="menu nav">
-              <li class="first last leaf">
-                <a href="/" class="active">Home</a>
-              </li>
-            </ul>
+
+            <div data-loading></div>
 
             <ul class="menu nav pull-right">
               <li class="first leaf">
+                <a href="/">My projects</a>
+              </li>
+              <li class="">
                 <a href="/settings">My account</a>
               </li>
               <li class="last leaf">
@@ -85,6 +85,7 @@
       <?php if (!empty($action_links)): ?>
         <ul class="action-links"><?php print render($action_links); ?></ul>
       <?php endif; ?>
+
       <?php print render($page['content']); ?>
     </section>
 

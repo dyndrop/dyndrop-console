@@ -62,7 +62,7 @@
     return {
       restrict: 'A',
       replace: true,
-      template: '<div class="alert" ng-show="isshown"> Loading... </div>',
+      template: '<div id="global-loading-message" ng-show="isshown"> Loading... </div>',
       controller: function ($scope, $element, $attrs, LoadingSrv) {
         $scope.$watch(function () { return LoadingSrv.requestCount; }, function (newVal) {
           $scope.isshown = LoadingSrv.isLoadingShown();

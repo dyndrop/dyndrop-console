@@ -2,6 +2,40 @@
   height: 32px;
 }
 
+#global-loading-message {
+  position: relative;
+  float: left;
+  padding: 10px 15px 10px;
+  color: #444444;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #ffffff;
+}
+
+table.repos td {
+  padding: 12px 8px;
+}
+
+table.repos tr.hosted td {
+  background-color: #f9f9f9;
+}
+
+table.repos .title {
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 4px;
+}
+
+table.repos .unsupported-language {
+  font-size: 10px;
+  color: #777777;
+}
+
+table.repos .actions {
+  width: 200px;
+  text-align: right;
+}
+
+
 #add-card-form h4 {
   margin-top: 0px;
 }
