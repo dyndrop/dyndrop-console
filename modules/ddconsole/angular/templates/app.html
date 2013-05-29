@@ -1,29 +1,31 @@
-<h2>{{app.label}}</h2>
+<div class="app-view">
+  <h2 class="big-title">{{app.label}}</h2>
 
 
-<div class="row">
-  <div class="span2">
-    <ul class="nav nav-list" navlist ng-controler="navCtrl">
+  <div class="row">
+    <div class="span2">
+      <ul class="nav nav-list" navlist ng-controler="navCtrl">
 
-      <li class="nav-header">Production</li>
-      <li class="active" ng-click="setActive($event)"><a href="" ng-click="setComponent('production-overview')">Overview</a></li>
-      <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('production-domains')">Domain names</a></li>
+        <li class="nav-header">Production</li>
+        <li class="active" ng-click="setActive($event)"><a href="" ng-click="setComponent('production-overview')">Overview</a></li>
+        <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('production-domains')">Domain names</a></li>
 
-      <!--<li class="nav-header">Test</li>
-      <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('test-overview')">Overview</a></li>
+        <!--<li class="nav-header">Test</li>
+        <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('test-overview')">Overview</a></li>
 
-      <li class="nav-header">Development</li>
-      <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('development-backups')">Overview</a></li>-->
+        <li class="nav-header">Development</li>
+        <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('development-backups')">Overview</a></li>-->
 
-      <li class="divider"></li>
-      <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('configure')">Configure project</a></li>
-    </ul>
-  </div>
-    <div ng-switch on="component" >
-      <div ng-switch-when="production-overview" ng-include="angular_templates_path + 'partials/app-production-overview.html'"></div>
-      <div ng-switch-when="configure" ng-include="angular_templates_path + 'partials/app-configure.html'"></div>
-      <div ng-switch-when="production-domains" ng-include="angular_templates_path + 'partials/app-production-domains.html'"></div>
-      <!-- <div ng-switch-when="cm"></div> -->
-      <div ng-switch-default><div class="span8">To be done.</div></div>
+        <li class="divider"></li>
+        <li class="" ng-click="setActive($event)"><a href="" ng-click="setComponent('configure')">Configure project</a></li>
+      </ul>
     </div>
+      <div ng-switch on="component" >
+        <div ng-switch-when="production-overview" ng-include="angular_templates_path + 'partials/app-production-overview.html'"></div>
+        <div ng-switch-when="configure" ng-include="angular_templates_path + 'partials/app-configure.html'"></div>
+        <div ng-switch-when="production-domains" ng-include="angular_templates_path + 'partials/app-production-domains.html'"></div>
+        <!-- <div ng-switch-when="cm"></div> -->
+        <div ng-switch-default><div class="span8">To be done.</div></div>
+      </div>
+  </div>
 </div>

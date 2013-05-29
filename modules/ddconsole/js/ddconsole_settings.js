@@ -10,7 +10,7 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
     $scope.setComponent = function(val) {
       $scope.component = val;
     }
-    $scope.component = 'settings-profile';
+    $scope.component = 'settings-billing';
    
     User.get({id: "me"}, function(user) {
       self.original = user;

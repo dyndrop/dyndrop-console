@@ -1,10 +1,6 @@
-<h2>Host your Github project</h2>
+<h2>Host your {{repo_location.split('/')[1]}} project</h2>
 
 <form name="appEditForm">
-  <div>
-    <label>Github project</label>
-    <input type="text" disabled="disabled" value="git@github.com:{{repo_location}}.git" size="42" />
-  </div>
 
   <div class="control-group" ng-class="{error: appEditForm.label.$invalid}">
     <label>Name</label>
@@ -24,6 +20,6 @@
  
   <br>
   <a href="/" class="btn">Cancel</a>
-  <button ng-click="save()" ng-disabled="isClean() || appEditForm.$invalid"
-          class="btn btn-primary">Host it!</button>
+  <button ng-click="save()" ng-disabled="isClean() || appEditForm.$invalid" class="btn btn-primary">Host it!</button>
+
 </form>

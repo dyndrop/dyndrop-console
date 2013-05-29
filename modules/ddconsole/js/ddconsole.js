@@ -4,12 +4,12 @@ angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.r
   config(function($routeProvider, $locationProvider) {
     $routeProvider.
       when('/', {controller: 'ListCtrl', templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'applist.html'}).
-      when('/repo/:repo_org/:repo_name/host', {controller: 'CreateFromRepoCtrl', templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'app-new-from-repo.html'}).
-      when('/app/:appName', {controller: 'ViewCtrl', templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'app.html'}).
       //when('/new', {controller:CreateCtrl, templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'app-new.html'}).
       when('/settings', {controller: 'SettingsCtrl', templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'settings.html'}).
       when('/oauth/github/callback', {controller: 'AuthOauthGithubCallbackCtrl', template: '<div></div>'}).
       when('/logout', {controller: 'AuthLogoutCtrl', template: '<div></div>'}).
+      when('/:repo_org/:repo_name/host', {controller: 'CreateFromRepoCtrl', templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'app-new-from-repo.html'}).
+      when('/:repo_org/:repo_name', {controller: 'ViewCtrl', templateUrl: Drupal.settings.dyndrop_console.angular_templates + 'app.html'}).
       otherwise({redirectTo:'/'});
 
     $locationProvider.html5Mode(true);

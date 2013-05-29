@@ -19,21 +19,25 @@ table.repos tr.hosted td {
   background-color: #f9f9f9;
 }
 
+table.repos tr.unsupportedlanguage {
+  color: #777777;
+}
+
 table.repos .title {
   font-size: 18px;
   font-weight: bold;
   padding-bottom: 4px;
 }
 
-table.repos .unsupported-language {
+table.repos .unsupported-language-label {
   font-size: 10px;
-  color: #777777;
 }
 
 table.repos .actions {
   width: 200px;
   text-align: right;
 }
+
 
 
 #add-card-form h4 {
@@ -64,6 +68,14 @@ table.cardlist td {
   vertical-align: middle;
 }
 
+
+.app-view .big-title {
+  height: 40px;
+}
+
+.currently-hosted .media {
+  padding-bottom: 8px;
+}
 
 #external-uri-form {
   margin-bottom: 0px;

@@ -112,6 +112,7 @@ function ddconsole_console() {
       'server_url' => variable_get('pxcf_client_api_endpoint', ''),
       'github_client_id' => variable_get('github_client_id', ''),
       'default_cf_dns_suffix' => _ddconsole_get_default_cf_dns_suffix(),
+      'paymill_client_id' => variable_get('paymill_public_key', ''),
       'angular_templates' => '/component/',
       )
     ), 'setting');

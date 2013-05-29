@@ -1,12 +1,7 @@
 <div class="span8">
-  <legend>Source code</legend>
-  <div class="input-prepend" ng-show="app.instances[0].code">
-    <span class="add-on">SSH</span>
-    <input type="text" ng-model="app.repo.url" readonly="readonly" size="60">
-  </div>
+  <legend>Currently hosted</legend>
 
-  <div ng-show="app.instances[0].code">
-    <h5>Currently deployed:</h5>
+  <div ng-show="app.instances[0].code" class="currently-hosted">
 
     <div class="media">
       <a class="pull-left" href="#">
@@ -17,11 +12,14 @@
         {{app.instances[0].code.author.name}} - {{app.instances[0].code.authored_date}}
       </div>
     </div>
+    <div>
+      <a href="https://github.com/{{repo.location}}/commits/master" target="_blank">View code history</a>
+    </div>
   </div>
 </div>
 
-<div class="span2">
+<!-- <div class="span2">
   <a class="btn btn-large" href="http://{{app.instances[0].uris[0]}}/" target="_blank" style="margin-bottom:5px">Go to website &gt;</a>
   <a class="btn btn-mini" href="http://{{app.instances[0].uris[0]}}/install.php" target="_blank">install.php</a>
   <a class="btn btn-mini" href="http://{{app.instances[0].uris[0]}}/update.php" target="_blank">update.php</a>
-</div>
+</div> -->

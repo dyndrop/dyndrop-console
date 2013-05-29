@@ -88,7 +88,7 @@
         </div>
 
         <script type="text/javascript">
-          var PAYMILL_PUBLIC_KEY = '794035449584e5c36e602491387e2c95';
+          var PAYMILL_PUBLIC_KEY = Drupal.settings.dyndrop_console.paymill_client_id;
         </script>
         <script type="text/javascript" src="https://bridge.paymill.com/"></script>
 
@@ -102,9 +102,9 @@
 
   <form>
     <legend>Danger zone</legend>
-    <button type="button" class="btn btn-danger delete pull-right" ng-click="destroy()">Delete application</button>
-    <label>Delete this application</label>
-    <span class="help-block">Delete everything, including the source code repository, the production instance, the developments instances. There is no going back.</span>
+    <button type="button" class="btn btn-danger delete pull-right" ng-click="destroy()">Shutdown hosting</button>
+    <label>Shutdown hosting of the project</label>
+    <span class="help-block">Delete the database, shutdown the production hosting, and all other development instances. Your <a href="https://github.com/{{repo.location}}" target="_blank">code repository at GitHub</a> will remain untouched.</span>
 
 
   </form>

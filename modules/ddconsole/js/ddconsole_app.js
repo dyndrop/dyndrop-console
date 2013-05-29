@@ -48,12 +48,18 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
     }
 
   }])
-  .controller('ViewCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
+  .controller('ViewCtrl', ['$scope', '$location', '$routeParams', 'App', 'Repo', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, Repo, DDConsoleConfig) {
     var self = this;
    
-    App.get({id: $routeParams.appName}, function(app) {
-      self.original = app;
-      $scope.app = new App(self.original);
+    Repo.get({org: $routeParams.repo_org, name: $routeParams.repo_name}, function(repo) {
+      self.original = repo;
+      $scope.repo = new Repo(self.original);
+
+      if($scope.repo.app == null) {
+        $location.path($location.path() + "/host");
+      }
+
+      $scope.app = new App($scope.repo.app);
     });
 
     $scope.setComponent = function(val) {
@@ -68,7 +74,7 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
     }
 
     $scope.destroy = function() {
-      self.original.destroy(function() {
+      new App(self.original.app).destroy(function() {
         $location.path('/list');
       });
     }
