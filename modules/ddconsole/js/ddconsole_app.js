@@ -17,7 +17,9 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
   .controller('ListCtrl', ['$scope', '$location', '$routeParams', 'Repo', 'User', function ($scope, $location, $routeParams, Repo, User) {
     var self = this;
    
-    $scope.repos = Repo.query();
+    Repo.query(function(repos) {
+      $scope.repos = repos;
+    });
 
     User.get({id: "me"}, function(user) {
       self.original = user;

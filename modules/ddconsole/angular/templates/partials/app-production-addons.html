@@ -1,0 +1,18 @@
+<div class="span8">
+  <legend>Mysql</legend>
+
+  Mysql credentials to your database are available via the VCAP_SERVICES environment variable.
+  <br /><br />
+  <pre>
+  $services = getenv('VCAP_SERVICES');
+  $services_json = json_decode($services,true);
+  $mysql_config = $services_json["mysql-5.1"][0]["credentials"];
+  $credentials = array(
+    'database' => $mysql_config["name"],
+    'username' => $mysql_config["user"],
+    'password' => $mysql_config["password"],
+    'host' => $mysql_config["hostname"],
+    'port' => $mysql_config["port"],
+  );
+  </pre>
+</div>

@@ -13,31 +13,40 @@
 
   <div class="span8">
 
-    <table ng-show="repos.length > 0" class="table repos">
-      
+    <div ng-show="repos.length > 0">
+      <table class="table repos">
 
-        <tr ng-repeat="repo in repos | orderBy: ['provider_data.language != \'PHP\'', '!app']" ng-class="{hosted: repo.app, unsupportedlanguage: repo.provider_data.language != 'PHP'}">
-          <td>
-            <div ng-show="repo.app == null" class="title">
-              <a ng-show="repo.provider_data.language == 'PHP'" href="/{{repo.location}}/host">{{repo.location.split('/')[1]}}</a>
-              <span ng-show="repo.provider_data.language != 'PHP'">{{repo.location.split('/')[1]}}</span>
-            </div>
-            <div ng-show="repo.app" class="title">
-              <a href="/{{repo.location}}">{{repo.location.split('/')[1]}}</a> hosted on <a ng-show="repo.app" href="http://{{repo.app.instances[0].uris[0]}}" target="_blank">{{repo.app.instances[0].uris[0]}}</a>
-            </div>
-            <div class="description">
-              {{repo.provider_data.description}}
-            </div>
-          </td>
-          <td class="actions">
-            <a ng-show="repo.app" class="btn" href="/{{repo.location}}">Manage</a>
-            <a ng-show="repo.app == null && repo.provider_data.language == 'PHP'" class="btn" href="/{{repo.location}}/host">Host</a>
-            <span ng-show="repo.app == null && repo.provider_data.language != 'PHP'" class="unsupported-language-label">Unsupported language ({{repo.provider_data.language}})</span>
-          </td>
-        </tr>
+          <tr ng-repeat="repo in repos | orderBy: ['provider_data.language != \'PHP\'', '!app']" ng-class="{hosted: repo.app, unsupportedlanguage: repo.provider_data.language != 'PHP'}">
+            <td>
+              <div ng-show="repo.app == null" class="title">
+                <a ng-show="repo.provider_data.language == 'PHP'" href="/{{repo.location}}/host">{{repo.location.split('/')[1]}}</a>
+                <span ng-show="repo.provider_data.language != 'PHP'">{{repo.location.split('/')[1]}}</span>
+              </div>
+              <div ng-show="repo.app" class="title">
+                <a href="/{{repo.location}}">{{repo.location.split('/')[1]}}</a> hosted on <a ng-show="repo.app" href="http://{{repo.app.instances[0].uris[0]}}" target="_blank">{{repo.app.instances[0].uris[0]}}</a>
+              </div>
+              <div class="description">
+                {{repo.provider_data.description}}
+              </div>
+            </td>
+            <td class="actions">
+              <a ng-show="repo.app" class="btn" href="/{{repo.location}}">Manage</a>
+              <a ng-show="repo.app == null && repo.provider_data.language == 'PHP'" class="btn" href="/{{repo.location}}/host">Host</a>
+              <span ng-show="repo.app == null && repo.provider_data.language != 'PHP'" class="unsupported-language-label">Unsupported language ({{repo.provider_data.language}})</span>
+            </td>
+          </tr>
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
+
+    <div ng-show="repos != undefined && repos.length == 0" class="well text-center">
+      <h3>You have no projects yet!</h3>
+
+      <a href="https://github.com/new" class="btn btn-success btn-large">Create a new GitHub repository</a>
+
+      <br /><br />
+    </div>
 
     <!-- <a href="/new" role="button" class="btn">Create new app</a> -->
 
