@@ -14,6 +14,11 @@
   <div class="span8">
 
     <div ng-show="repos.length > 0">
+
+      <div class="new-repo-button pull-right">
+        <a href="https://github.com/new" class="btn btn-success" target="_blank">New</a>
+      </div>
+
       <table class="table repos">
 
           <tr ng-repeat="repo in repos | orderBy: ['provider_data.language != \'PHP\'', '!app']" ng-class="{hosted: repo.app, unsupportedlanguage: repo.provider_data.language != 'PHP'}">
@@ -43,7 +48,7 @@
     <div ng-show="repos != undefined && repos.length == 0" class="well text-center">
       <h3>You have no projects yet!</h3>
 
-      <a href="https://github.com/new" class="btn btn-success btn-large">Create a new GitHub repository</a>
+      <a href="https://github.com/new" class="btn btn-success btn-large" target="_blank">Create a new GitHub repository</a>
 
       <br /><br />
     </div>
