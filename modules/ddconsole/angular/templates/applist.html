@@ -13,11 +13,14 @@
 
   <div class="span8">
 
-    <div ng-show="repos.length > 0">
+    <div ng-show="repos.length > 0" class="repo-list">
 
       <div class="new-repo-button pull-right">
         <a href="https://github.com/new" class="btn btn-success" target="_blank">New</a>
       </div>
+      <h4 class="title">
+        My projects
+      </h4>
 
       <table class="table repos">
 
@@ -28,13 +31,14 @@
                 <span ng-show="repo.provider_data.language != 'PHP'">{{repo.location.split('/')[1]}}</span>
               </div>
               <div ng-show="repo.app" class="title">
-                <a href="/{{repo.location}}">{{repo.location.split('/')[1]}}</a> hosted on <a ng-show="repo.app" href="http://{{repo.app.instances[0].uris[0]}}" target="_blank">{{repo.app.instances[0].uris[0]}}</a>
+                <a href="/{{repo.location}}">{{repo.app.label}}</a> - <a ng-show="repo.app" href="http://{{repo.app.instances[0].primary_uri}}" target="_blank">{{repo.app.instances[0].primary_uri}}</a>
               </div>
               <div class="description">
                 {{repo.provider_data.description}}
               </div>
             </td>
             <td class="actions">
+              <!-- <a ng-show="repo.app" class="btn" href="#"><i class="icon-star"></i> Code</a> -->
               <a ng-show="repo.app" class="btn" href="/{{repo.location}}">Manage</a>
               <a ng-show="repo.app == null && repo.provider_data.language == 'PHP'" class="btn" href="/{{repo.location}}/host">Host</a>
               <span ng-show="repo.app == null && repo.provider_data.language != 'PHP'" class="unsupported-language-label">Unsupported language ({{repo.provider_data.language}})</span>

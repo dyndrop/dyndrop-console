@@ -18,6 +18,17 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
     var self = this;
    
     Repo.query(function(repos) {
+
+      //Add primary uri infos on the repos. To be moved on resource later.
+      for(var i = 0; i < repos.length; i++) {
+        if(repos[i].app != null) {
+          repos[i].app.instances[0].primary_uri = repos[i].app.instances[0].uris[0];
+          if(repos[i].app.instances[0].external_uris.length > 0) {
+            repos[i].app.instances[0].primary_uri = repos[i].app.instances[0].external_uris[0];
+          }
+        }
+      }
+
       $scope.repos = repos;
     });
 
@@ -103,6 +114,8 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
         $scope.app.instances[0].external_uris.push(new_external_uri);
         $scope.app.update(function() {
             dns_check();
+            // TODO: No Jquery here!
+            $('#external-uri-help-modal').modal('show');
           }, 
           function() {
             var index = $.inArray(new_external_uri, $scope.app.instances[0].external_uris);

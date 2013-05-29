@@ -11,7 +11,12 @@
   text-shadow: 0 1px 0 #ffffff;
 }
 
-.new-repo-button {
+.repo-list h4.title {
+  margin: 0px;
+  padding: 5px 0px;
+}
+
+.repo-list .new-repo-button {
   padding-bottom:10px;
 }
 
