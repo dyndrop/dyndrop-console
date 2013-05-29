@@ -19,7 +19,7 @@
   </div>
  
   <br>
-  <a href="/" class="btn">Cancel</a>
-  <button ng-click="save()" ng-disabled="isClean() || appEditForm.$invalid" class="btn btn-primary">Host it!</button>
+  <a href="/" class="btn" ng-disabled="submitDisabled">Cancel</a>
+  <button ng-click="submitDisabled = true; save()" ng-disabled="isClean() || appEditForm.$invalid || submitDisabled" class="btn btn-primary">Host it!</button>
 
 </form>

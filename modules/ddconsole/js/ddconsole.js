@@ -23,7 +23,7 @@ angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.r
     //If unauthorized, redirect to auth
     if($.cookie('dyndrop-token') == undefined) {
       if($location.path() != '/oauth/github/callback') {
-        window.location = "https://github.com/login/oauth/authorize?scope=repo&client_id=" + DDConsoleConfig.github_client_id
+        window.location = "https://github.com/login/oauth/authorize?scope=user:email,repo&client_id=" + DDConsoleConfig.github_client_id
       }
     }
     
