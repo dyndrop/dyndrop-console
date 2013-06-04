@@ -24,7 +24,7 @@
           <td>Small</td>
           <td>€30/month</td>
           <td>
-            <button class="btn" ng-show="app.plan == 'free'" ng-click="updatePlan('small')">Upgrade</button>
+            <button class="btn hidden" ng-show="app.plan == 'free'" ng-click="updatePlan('small')">Upgrade</button><span class="label label-info">Not yet available!</span>
             <div ng-show="app.plan == 'small'">Your plan</div>
           </td>
         </tr>
