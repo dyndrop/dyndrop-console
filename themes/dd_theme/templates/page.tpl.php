@@ -112,11 +112,11 @@
     link_color: '#007dbf',
     default_mode: 'support',
     forum_id: 209503,
-    tab_label: 'Feedback & Support',
+    tab_label: 'Contact us',
     tab_color: '#cc6d00',
     tab_position: 'middle-right',
     tab_inverted: false
   }]);
   </script>
-  
+
 </div>
