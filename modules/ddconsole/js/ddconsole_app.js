@@ -37,6 +37,11 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
       $scope.user = new User(self.original);
     });
 
+    $scope.repo_is_supported = function(repo) {
+      var language = repo.provider_data.language;
+      return (language == "PHP" || language == "Javascript" || language == undefined);
+    }
+
   }])
   .controller('CreateFromRepoCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
     var self = this;

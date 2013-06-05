@@ -22,7 +22,8 @@ angular.module('ddconsole.auth', ['ddconsole.resource', 'ngCookies'])
     var code = $location.search().code;
 
     User.oauth_github_callback({code: code}, function(data) {
-      $.cookie('dyndrop-token', data.token, { expires: 7, path: '/' });
+      $.cookie('dyndrop-token', data.token, { path: '/' });
+      $.cookie('github-token', data.github_token, { path: '/' });
 
       window.location = '/';
     });
@@ -30,6 +31,7 @@ angular.module('ddconsole.auth', ['ddconsole.resource', 'ngCookies'])
   .controller('AuthLogoutCtrl', ['$scope', '$location', '$routeParams', 'User', function ($scope, $location, $routeParams, User) {
     var self = this;
 
+    $.removeCookie('github-token');
     $.removeCookie('dyndrop-token');
     window.location = 'http://www.dyndrop.com/';
   }]);

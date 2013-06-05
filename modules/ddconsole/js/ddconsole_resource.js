@@ -4,6 +4,7 @@ angular.module('ddconsole.resource', ['ngResource'])
   .config(['$httpProvider', function ($httpProvider) {
     if($.cookie('dyndrop-token')) {
       $httpProvider.defaults.headers.common['Authorization'] = "Bearer " + $.cookie('dyndrop-token');
+      $httpProvider.defaults.headers.common['X-GitHub-token'] = $.cookie('github-token');
     }
   }])
   .factory('App', function($resource) {
