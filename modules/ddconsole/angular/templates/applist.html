@@ -24,7 +24,7 @@
 
       <table class="table repos">
 
-          <tr ng-repeat="repo in repos | orderBy: [repo_is_supported, 'app']:true" ng-class="{hosted: repo.app, unsupportedlanguage: repo_is_supported(repo) == false}">
+          <tr ng-repeat="repo in repos | orderBy: [repo_is_supported, 'app != undefined']:true" ng-class="{hosted: repo.app, unsupportedlanguage: repo_is_supported(repo) == false}">
             <td>
               <div ng-show="repo.app == null" class="title">
                 <a ng-show="repo_is_supported(repo)" href="/{{repo.location}}/host">{{repo.location.split('/')[1]}}</a>
