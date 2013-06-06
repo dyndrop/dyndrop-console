@@ -39,7 +39,7 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
 
     $scope.repo_is_supported = function(repo) {
       var language = repo.provider_data.language;
-      return (language == "PHP" || language == "Javascript" || language == undefined);
+      return (language == "PHP" || language == "JavaScript" || language == undefined);
     }
 
   }])
