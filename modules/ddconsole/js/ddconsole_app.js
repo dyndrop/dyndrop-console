@@ -66,16 +66,26 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
   }])
   .controller('ViewCtrl', ['$scope', '$location', '$routeParams', 'App', 'Repo', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, Repo, DDConsoleConfig) {
     var self = this;
-   
-    Repo.get({org: $routeParams.repo_org, name: $routeParams.repo_name}, function(repo) {
-      self.original = repo;
-      $scope.repo = new Repo(self.original);
 
-      if($scope.repo.app == null) {
-        $location.path($location.path() + "/host");
+    //Get and load the repo object   
+    $scope.$watch('repos', function() {
+      var repo_location = $routeParams.repo_org + "/" + $routeParams.repo_name;
+      if($scope.repos != undefined) {
+
+        for(var i = 0; i < $scope.repos.length; i++) {
+          if($scope.repos[i].location == repo_location) {
+            $scope.repo = $scope.repos[i];
+          }
+        }
+        if($scope.repo == undefined) {
+          $location.path("/");
+          return;
+        }
+        if($scope.repo.app == null) {
+          $location.path($location.path() + "/host");
+        }
+        $scope.app = new App($scope.repo.app);
       }
-
-      $scope.app = new App($scope.repo.app);
     });
 
     $scope.setComponent = function(val) {
