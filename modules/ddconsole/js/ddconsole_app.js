@@ -16,26 +16,6 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
   })
   .controller('ListCtrl', ['$scope', '$location', '$routeParams', 'Repo', 'User', function ($scope, $location, $routeParams, Repo, User) {
     var self = this;
-   
-    Repo.query(function(repos) {
-
-      //Add primary uri infos on the repos. To be moved on resource later.
-      for(var i = 0; i < repos.length; i++) {
-        if(repos[i].app != null) {
-          repos[i].app.instances[0].primary_uri = repos[i].app.instances[0].uris[0];
-          if(repos[i].app.instances[0].external_uris.length > 0) {
-            repos[i].app.instances[0].primary_uri = repos[i].app.instances[0].external_uris[0];
-          }
-        }
-      }
-
-      $scope.repos = repos;
-    });
-
-    User.get({id: "me"}, function(user) {
-      self.original = user;
-      $scope.user = new User(self.original);
-    });
 
     $scope.repo_is_supported = function(repo) {
       var language = repo.provider_data.language;
@@ -46,10 +26,27 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
   .controller('CreateFromRepoCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
     var self = this;
    
+    $scope.free_plan_available = function() {
+      var free_plan_count = 0;
+      if($scope.repos != undefined) {
+        for(var i = 0; i < $scope.repos.length; i++) {
+          if($scope.repos[i].app != undefined && $scope.repos[i].app.plan == "free") {
+            free_plan_count++;
+          }
+        }
+      }
+      return free_plan_count < 1;
+    }
+
     $scope.repo_location = $routeParams.repo_org + "/" + $routeParams.repo_name;
 
     // Initiate basic App object
     $scope.app = new App();
+    $scope.app.label = $routeParams.repo_name;
+    $scope.$watch('repos', function() {
+      $scope.app.plan = $scope.free_plan_available() ? "free" : "small";
+    });
+
     app_instance = { "uris": [] };
     $scope.app.instances = [];
     $scope.app.instances[0] = app_instance;
@@ -61,6 +58,7 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
 
     $scope.save = function() {
       App.save($scope.app, function(app) {
+        $scope.reload_repos();
         $location.path('/');
       });
     }
@@ -87,12 +85,13 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
 
     $scope.update = function() {
       $scope.app.update(function() {
-        //success
+        $scope.reload_repos();
       });
     }
 
     $scope.destroy = function() {
       new App(self.original.app).destroy(function() {
+        $scope.reload_repos();
         $location.path('/list');
       });
     }
@@ -118,6 +117,7 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
         $scope.new_external_uri = '';
         $scope.app.instances[0].external_uris.push(new_external_uri);
         $scope.app.update(function() {
+            $scope.reload_repos();
             dns_check();
             // TODO: No Jquery here!
             $('#external-uri-help-modal').modal('show');
@@ -135,7 +135,9 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
       var index = $scope.app.instances[0].external_uris.indexOf(uri);
       if(index >= 0) {
         $scope.app.instances[0].external_uris.splice(index, 1);
-        $scope.app.update();
+        $scope.app.update(function() {
+          $scope.reload_repos();
+        });
       }
     }
 
@@ -156,7 +158,8 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
           name: plan_name
         }, function() {
           // Success
-           $scope.app.plan = plan_name;
+          $scope.reload_repos();
+          $scope.app.plan = plan_name;
         });
     }
 

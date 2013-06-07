@@ -1,13 +1,6 @@
 <h2>Host your {{repo_location.split('/')[1]}} project</h2>
 
 <form name="appEditForm">
-
-  <div class="control-group" ng-class="{error: appEditForm.label.$invalid}">
-    <label>Name</label>
-    <input type="text" name="label" ng-model="app.label" required>
-    <span ng-show="appEditForm.label.$error.required" class="help-inline">
-        Required</span>
-  </div>
  
   <div class="control-group url" ng-class="{error: appEditForm.uri.$invalid}">
     <label>URL</label>
@@ -18,6 +11,17 @@
         Required</span>
   </div>
  
+  <label>Plan</label>
+  <label class="radio" ng-class="{muted: free_plan_available() == false}">
+    <input ng-model="app.plan" type="radio" name="plan" value="free" ng-disabled="free_plan_available() == false">
+    Free - €0/month <small ng-hide="free_plan_available()">(You can use this plan for 1 repository only)</small>
+  </label>
+  <label class="radio">
+    <input ng-model="app.plan" type="radio" name="plan" value="small">
+    Small - €30/month
+  </label>
+
+
   <br>
   <a href="/" class="btn" ng-disabled="submitDisabled">Cancel</a>
   <button ng-click="submitDisabled = true; save()" ng-disabled="isClean() || appEditForm.$invalid || submitDisabled" class="btn btn-primary">Host it!</button>

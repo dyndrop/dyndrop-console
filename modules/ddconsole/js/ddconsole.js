@@ -18,15 +18,44 @@ angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.r
   factory('DDConsoleConfig', function () {
     return Drupal.settings.dyndrop_console;
   }).
-  run(function($location, DDConsoleConfig, AuthToken) {
+  run(function($location, $rootScope, DDConsoleConfig, AuthToken, Repo, User) {
 
-    //If unauthorized, redirect to auth
+    // If unauthorized, redirect to auth
     if($.cookie('dyndrop-token') == undefined) {
       if($location.path() != '/oauth/github/callback') {
         window.location = "https://github.com/login/oauth/authorize?scope=user:email,repo&client_id=" + DDConsoleConfig.github_client_id
       }
     }
-    
+
+    /**
+     * Global data functions
+     */
+    $rootScope.reload_repos = function() {
+      Repo.query(function(repos) {
+
+        //Add primary uri infos on the repos. To be moved on resource later.
+        for(var i = 0; i < repos.length; i++) {
+          if(repos[i].app != null) {
+            repos[i].app.instances[0].primary_uri = repos[i].app.instances[0].uris[0];
+            if(repos[i].app.instances[0].external_uris.length > 0) {
+              repos[i].app.instances[0].primary_uri = repos[i].app.instances[0].external_uris[0];
+            }
+          }
+        }
+
+        $rootScope.repos = repos;
+      });
+    }
+    $rootScope.reload_repos();
+
+    $rootScope.reload_user = function() {
+      User.get({id: "me"}, function(user) {
+        self.original = user;
+        $rootScope.user = new User(self.original);
+      });
+    }
+    $rootScope.reload_user();
+
   });
 
 
