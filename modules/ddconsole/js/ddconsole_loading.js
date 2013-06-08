@@ -91,7 +91,7 @@
     return {
       restrict: 'A',
       replace: true,
-      template: '<div><div ng-repeat="errorMessage in errorMessages"><div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert">&times;</button> <strong>Error!</strong> {{errorMessage}} </div></div></div>',
+      template: '<div><div ng-repeat="errorMessage in errorMessages"><div class="alert alert-error"> <button type="button" class="close" data-dismiss="alert">&times;</button> <strong>Error!</strong> <span ng-bind-html-unsafe="errorMessage"></span> </div></div></div>',
       controller: function ($scope, $element, $attrs, LoadingSrv) {
         $scope.$watch(function () { return LoadingSrv.errorMessages; }, function (newVal) {
           //$scope.isshown = LoadingSrv.isLoadingShown();
