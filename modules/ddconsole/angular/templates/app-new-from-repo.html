@@ -27,3 +27,6 @@
   <button ng-click="submitDisabled = true; save()" ng-disabled="isClean() || appEditForm.$invalid || submitDisabled" class="btn btn-primary">Host it!</button>
 
 </form>
+
+<!-- Adding card Modal -->
+<div ng-include="angular_templates_path + 'partials/widget-credit-card-popup.html'"></div>

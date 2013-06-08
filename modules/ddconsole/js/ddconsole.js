@@ -18,7 +18,7 @@ angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.r
   factory('DDConsoleConfig', function () {
     return Drupal.settings.dyndrop_console;
   }).
-  run(function($location, $rootScope, DDConsoleConfig, AuthToken, Repo, User) {
+  run(function($location, $rootScope, DDConsoleConfig, AuthToken, Repo, User, UserCard) {
 
     // If unauthorized, redirect to auth
     if($.cookie('dyndrop-token') == undefined) {
@@ -30,6 +30,7 @@ angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.r
     /**
      * Global data functions
      */
+    // Repos
     $rootScope.reload_repos = function() {
       Repo.query(function(repos) {
 
@@ -48,13 +49,27 @@ angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.r
     }
     $rootScope.reload_repos();
 
+    // User
     $rootScope.reload_user = function() {
       User.get({id: "me"}, function(user) {
-        self.original = user;
-        $rootScope.user = new User(self.original);
+        $rootScope.user = new User(user);
       });
     }
     $rootScope.reload_user();
+
+    // User cards
+    $rootScope.reload_user_cards = function() {
+      UserCard.query({user_id: "me"}, function(cards) {
+        $rootScope.cards = [];
+        for(var i = 0; i < cards.length; i++) {
+          $rootScope.cards.push(new UserCard(cards[i]));
+        }
+      });
+    }
+    $rootScope.reload_user_cards();
+
+    // Path for the templates
+    $rootScope.angular_templates_path = DDConsoleConfig.angular_templates;
 
   });
 

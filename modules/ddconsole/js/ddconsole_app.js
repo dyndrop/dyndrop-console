@@ -56,12 +56,27 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
       location: $scope.repo_location
     }
 
-    $scope.save = function() {
+    var create_application = function() {
       App.save($scope.app, function(app) {
         $scope.reload_repos();
         $location.path('/');
       });
     }
+
+    $scope.save = function(plan_name) {
+      // Using a non-free plan and no registered cards? Show the card-adding popup
+      if($scope.cards.length == 0 && $scope.app.plan != "free") {
+        $('#add-card-modal').modal('show');
+      }
+      else {
+        create_application();
+      }
+    }
+
+    $scope.$on('userCardAdded', function(mass) {
+      $('#add-card-modal').modal('hide');
+      create_application();
+    });
 
   }])
   .controller('ViewCtrl', ['$scope', '$location', '$routeParams', 'App', 'Repo', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, Repo, DDConsoleConfig) {
@@ -100,13 +115,11 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
     }
 
     $scope.destroy = function() {
-      new App(self.original.app).destroy(function() {
+      $scope.app.destroy(function() {
         $scope.reload_repos();
         $location.path('/list');
       });
     }
-
-    $scope.angular_templates_path = DDConsoleConfig.angular_templates;
 
   }])
 .controller('ViewProductionDomainsCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
@@ -174,17 +187,14 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
     }
 
     $scope.updatePlan = function(plan_name) {
-      //Check that the user have a credit card
-      UserCard.query({user_id: "me"}, function(cards) {
-        if(cards.length == 0 && plan_name != "free") {
-          //Show the card-adding popup
-          $scope.plan_being_chosen = plan_name;
-          $('#add-card-modal').modal('show');
-        }
-        else {
-          plan_register(plan_name);
-        }
-      });
+      if($scope.cards.length == 0 && plan_name != "free") {
+        //Show the card-adding popup
+        $scope.plan_being_chosen = plan_name;
+        $('#add-card-modal').modal('show');
+      }
+      else {
+        plan_register(plan_name);
+      }
     }
 
     $scope.$on('userCardAdded', function(mass) {

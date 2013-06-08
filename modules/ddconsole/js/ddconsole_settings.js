@@ -11,37 +11,14 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
       $scope.component = val;
     }
     $scope.component = 'settings-billing';
-   
-    User.get({id: "me"}, function(user) {
-      self.original = user;
-      $scope.user = new User(self.original);
-    });
-
-    $scope.angular_templates_path = DDConsoleConfig.angular_templates;
 
   }])
   .controller('SettingsCardsCtrl', ['$scope', '$location', '$routeParams', 'UserCard', 'DDConsoleConfig', 'LoadingSrv', function ($scope, $location, $routeParams, UserCard, DDConsoleConfig, LoadingSrv) {
     var self = this;
 
-    refresh_card_infos = function() {
-      UserCard.query({user_id: "me"}, function(cards) {
-        self.original = cards;
-
-        $scope.cards = [];
-        for(var i = 0; i < cards.length; i++) {
-          $scope.cards.push(new UserCard(cards[i]));
-        }
-      });
-    }
-    refresh_card_infos();
-
-    $scope.$on('userCardAdded', function(mass) {
-      refresh_card_infos();
-    });
-
     $scope.removeCard = function(card) {
       UserCard.delete({user_id: $scope.user.email, id: card.id}, {}, function() {
-        refresh_card_infos();
+        $scope.reload_user_cards();
       });
     }
   }])
@@ -92,6 +69,7 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
               $scope.paymill_token.exp_month = new Date().getMonth() + 1;
 
               $scope.$emit('userCardAdded');
+              $scope.reload_user_cards();
             });
           }
       });
