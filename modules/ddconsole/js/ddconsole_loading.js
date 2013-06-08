@@ -63,9 +63,26 @@
       restrict: 'A',
       replace: true,
       template: '<div id="global-loading-message" ng-show="isshown"> Loading... </div>',
-      controller: function ($scope, $element, $attrs, LoadingSrv) {
+      controller: function ($scope, $element, $attrs, $timeout, LoadingSrv) {
+        var timeout;
         $scope.$watch(function () { return LoadingSrv.requestCount; }, function (newVal) {
-          $scope.isshown = LoadingSrv.isLoadingShown();
+          var loading = LoadingSrv.isLoadingShown();
+
+          var timeout = null;
+          if(loading == false) {
+            $scope.isshown = false;
+          }
+          else {
+            //Show spinner only after a small delay, to avoid flickers
+            if(timeout == null) {
+              timeout = $timeout(function() {
+                if(LoadingSrv.isLoadingShown()) {
+                  $scope.isshown = true;
+                }
+                timeout = null;
+              }, 500);
+            }
+          }
         }, true);
       }
     };
