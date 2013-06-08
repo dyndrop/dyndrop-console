@@ -5,13 +5,15 @@
 #global-loading-message {
   position: relative;
   float: left;
-  padding: 10px 15px 10px;
-  color: #444444;
+  padding: 4px 10px 6px 34px;
+  margin: 7px 0px 3px 10px;
+  color: #666;
   text-decoration: none;
   text-shadow: 0 1px 0 #ffffff;
+  background: transparent url(../img/loader.gif) no-repeat top left;
 }
 
-.repo-list h4.title {
+.repo-list .title {
   margin: 0px;
   padding: 5px 0px;
 }
