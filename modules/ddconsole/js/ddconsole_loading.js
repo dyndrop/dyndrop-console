@@ -23,18 +23,24 @@
           }
           return errormsg;
         }
-        switch (errorResponse.status) {
-          case 401:
-            LoadingSrv.errorMessages.push('Wrong usename or password');
-            break;
-          case 403:
-            LoadingSrv.errorMessages.push('You are not allowed to do this');
-            break;
-          case 500:
-            LoadingSrv.errorMessages.push('Server internal error: ' + get_error_msg(errorResponse));
-            break;
-          default:
-            LoadingSrv.errorMessages.push(get_error_msg(errorResponse) + ' [' + errorResponse.status + ']');
+        if(errorResponse.config.url.match(/dyndrop\.com/) != null ||
+          errorResponse.config.url.match(/dyndrop\.local/) != null) {
+          switch (errorResponse.status) {
+            case 401:
+              LoadingSrv.errorMessages.push('Wrong usename or password');
+              break;
+            case 403:
+              LoadingSrv.errorMessages.push('You are not allowed to do this');
+              break;
+            case 500:
+              LoadingSrv.errorMessages.push('Server internal error: ' + get_error_msg(errorResponse));
+              break;
+            case 0:
+              // Do nothing, assuming cut communication (on page change)
+              break;
+            default:
+              LoadingSrv.errorMessages.push(get_error_msg(errorResponse) + ' [' + errorResponse.status + ']');
+          }
         }
         return $q.reject(errorResponse);
       });
