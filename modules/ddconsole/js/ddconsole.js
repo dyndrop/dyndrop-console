@@ -20,10 +20,16 @@ angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.r
   }).
   run(function($location, $rootScope, DDConsoleConfig, AuthToken, Repo, User, UserCard) {
 
-    // If unauthorized, redirect to auth
+    // If unauthentified, redirect to auth
     if($.cookie('dyndrop-token') == undefined) {
       if($location.path() != '/oauth/github/callback') {
         window.location = "https://github.com/login/oauth/authorize?scope=user:email,repo&client_id=" + DDConsoleConfig.github_client_id
+        return;
+      }
+      //Else we are in the oauth callback atm
+      else {
+        // We won't load the below global vars
+        return;
       }
     }
 
