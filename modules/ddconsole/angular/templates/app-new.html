@@ -1,11 +1,17 @@
-<h2>Launch a new Drupal project</h2>
+<h2>Create and host a new project</h2>
 
 <form name="appEditForm">
-  <div class="control-group" ng-class="{error: appEditForm.label.$invalid}">
-    <label>Name</label>
-    <input type="text" name="label" ng-model="app.label" required>
-    <span ng-show="appEditForm.label.$error.required" class="help-inline">
-        Required</span>
+
+  <div class="control-group project">
+    <label>Project</label>
+    <label class="radio">
+      <input ng-model="repo_template" type="radio" name="repo_template" value="drupal-7" required>
+      Drupal 7
+    </label>
+    <label class="radio">
+      <input ng-model="repo_template" type="radio" name="repo_template" value="empty" required>
+      Empty project
+    </label>
   </div>
  
   <div class="control-group url" ng-class="{error: appEditForm.uri.$invalid}">
@@ -16,11 +22,18 @@
     <span ng-show="appEditForm.uri.$error.required" class="help-inline">
         Required</span>
   </div>
+
+  <label>Plan</label>
+  <label class="radio" ng-class="{muted: free_plan_available() == false}">
+    <input ng-model="app.plan" type="radio" name="plan" value="free" ng-disabled="free_plan_available() == false">
+    Free - €0/month <small ng-hide="free_plan_available()">(You can use this plan for 1 project only)</small>
+  </label>
+  <label class="radio">
+    <input ng-model="app.plan" type="radio" name="plan" value="small">
+    Small - €30/month
+  </label>
  
   <br>
   <a href="/" class="btn">Cancel</a>
-  <button ng-click="save()" ng-disabled="isClean() || appEditForm.$invalid"
-          class="btn btn-primary">Save</button>
-  <button ng-click="destroy()"
-          ng-show="app.id" class="btn btn-danger">Delete</button>
+  <button ng-click="submitDisabled = true; save()" ng-disabled="isClean() || appEditForm.$invalid || submitDisabled" class="btn btn-primary">Save</button>
 </form>

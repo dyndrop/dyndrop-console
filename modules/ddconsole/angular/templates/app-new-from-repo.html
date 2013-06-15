@@ -14,7 +14,7 @@
   <label>Plan</label>
   <label class="radio" ng-class="{muted: free_plan_available() == false}">
     <input ng-model="app.plan" type="radio" name="plan" value="free" ng-disabled="free_plan_available() == false">
-    Free - €0/month <small ng-hide="free_plan_available()">(You can use this plan for 1 repository only)</small>
+    Free - €0/month <small ng-hide="free_plan_available()">(You can use this plan for 1 project only)</small>
   </label>
   <label class="radio">
     <input ng-model="app.plan" type="radio" name="plan" value="small">

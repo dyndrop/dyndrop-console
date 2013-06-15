@@ -23,9 +23,9 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
     }
 
   }])
-  .controller('CreateFromRepoCtrl', ['$scope', '$location', '$routeParams', 'App', 'DDConsoleConfig', function ($scope, $location, $routeParams, App, DDConsoleConfig) {
+  .controller('CreateCtrl', ['$scope', '$location', '$routeParams', 'App', 'Repo', 'GitHubApi', 'LoadingSrv', function ($scope, $location, $routeParams, App, Repo, GitHubApi, LoadingSrv) {
     var self = this;
-   
+
     $scope.free_plan_available = function() {
       var free_plan_count = 0;
       if($scope.repos != undefined) {
@@ -56,6 +56,82 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
       location: $scope.repo_location
     }
 
+    var create = function() {
+      // Switch between the "Create and host new" and "Host existing repo"
+      if($scope.repo_template != undefined && $scope.repo_template != null) {
+        create_repo(function() {
+          create_application();
+        });
+      }
+      else {
+        create_application();
+      }
+    }
+
+    var create_repo = function(cb) {
+      var new_repo_name = $scope.app.instances[0].uris[0].split(".")[0].replace(/[^0-9a-z\-]/g, "");
+
+      var new_repo = {
+        name: new_repo_name,
+        template: $scope.repo_template
+      };
+      Repo.save(new_repo, function(result) {
+        $scope.app.label = new_repo_name;
+        $scope.app.repo.location = result.location;
+        cb();  
+      });
+
+      // GitHubApi.get('/repos/' + $scope.user.name + '/' + new_repo_name, function() {
+      //   LoadingSrv.errorMessages.push("A GitHub repository named \"" + new_repo_name + "\" already exists.");
+      // }, function() {
+      //   GitHubApi.post('/repos/' + $scope.fork_project + '/forks', {}, function(data) {
+      //     console.log("Repository being forked. Waiting for fork completion.");
+      //     var repo_name = data.full_name;
+
+      //     var cur_time = new Date().getTime();
+      //     var repo_data = null;
+      //     var check_completion = function(cb) {
+      //       GitHubApi.get('/repos/' + repo_name, function(data) {
+      //         console.log("Repository is forked.")
+      //         repo_data = data;
+      //         cb();
+      //       },
+      //       function(data) {
+      //         //Try for 30s
+      //         if(new Date().getTime() < cur_time + 30000) {
+      //           console.log("Waiting...")
+      //           setTimeout(check_completion, 2000);
+      //         }
+      //         else {
+      //           console.log("Waited 30s to have repository forked. Probably failed.")
+      //           LoadingSrv.errorMessages.push("A GitHub repository failed to be created");
+      //         }
+      //       });
+      //     }
+      //     check_completion(function() {
+      //       //Let's rename the repo
+      //       patch_data = {
+      //         name: new_repo_name
+      //       }
+      //       GitHubApi.patch('/repos/' + repo_data.full_name, patch_data, function(result) {
+      //         console.log("Repository renamed to " + result.full_name);
+      //         $scope.app.label = new_repo_name;
+      //         $scope.app.repo.location = result.full_name;
+      //         cb();
+      //       }, function(result) {
+      //         console.log("Failed to rename repository");
+      //         LoadingSrv.errorMessages.push("Failed to rename the GitHub repository we forked.");
+      //       })
+      //     });
+            
+      //   }, function(data) {
+      //     console.log("Failed to fork repository \"" + $scope.fork_project + "\"");
+      //     LoadingSrv.errorMessages.push("A GitHub repository failed to be created");
+      //     console.log(data);
+      //   });
+      // });
+    }
+
     var create_application = function() {
       App.save($scope.app, function(app) {
         $scope.reload_repos();
@@ -69,13 +145,13 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
         $('#add-card-modal').modal('show');
       }
       else {
-        create_application();
+        create();
       }
     }
 
     $scope.$on('userCardAdded', function(mass) {
       $('#add-card-modal').modal('hide');
-      create_application();
+      create();
     });
 
   }])

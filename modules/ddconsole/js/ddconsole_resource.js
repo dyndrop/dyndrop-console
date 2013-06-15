@@ -77,6 +77,38 @@ angular.module('ddconsole.resource', ['ngResource'])
     };
 
     return UserCard;
+  }).
+  factory('GitHubApi', function($http) {
+    var GitHubApi = function() {};
+
+    var request = function(method, path, data, cb, error_cb) {
+      var config = {
+        method: method,
+        url: 'https://api.github.com' + path,
+        headers: {
+          Authorization: "Token " + $.cookie('github-token'),
+          'X-GitHub-token': null
+        }
+      };
+      if(data != null) {
+        config['data'] = data;
+      }
+      $http(config).success(cb).error(error_cb);
+    }
+
+    GitHubApi.prototype.get = function(path, cb, error_cb) {
+      request('GET', path, null, cb, error_cb);
+    }
+
+    GitHubApi.prototype.post = function(path, data, cb, error_cb) {
+      request('POST', path, data, cb, error_cb);
+    }
+
+    GitHubApi.prototype.patch = function(path, data, cb, error_cb) {
+      request('PATCH', path, data, cb, error_cb);
+    }
+
+    return new GitHubApi();
   });
 
 
