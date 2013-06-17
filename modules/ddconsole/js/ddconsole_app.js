@@ -49,7 +49,7 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
 
     app_instance = { "uris": [] };
     $scope.app.instances = [];
-    $scope.app.instances[0] = app_instance;
+    $scope.app.instances.prod = app_instance;
 
     $scope.app.repo = {
       provider: "github",
@@ -69,7 +69,7 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
     }
 
     var create_repo = function(cb) {
-      var new_repo_name = $scope.app.instances[0].uris[0].split(".")[0].replace(/[^0-9a-z\-]/g, "");
+      var new_repo_name = $scope.app.instances.prod.uris[0].split(".")[0].replace(/[^0-9a-z\-]/g, "");
 
       var new_repo = {
         name: new_repo_name,
@@ -214,7 +214,7 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
       if($scope.new_external_uri != undefined) {
         var new_external_uri = $scope.new_external_uri;
         $scope.new_external_uri = '';
-        $scope.app.instances[0].external_uris.push(new_external_uri);
+        $scope.app.instances.prod.external_uris.push(new_external_uri);
         $scope.app.update(function() {
             $scope.reload_repos();
             dns_check();
@@ -222,18 +222,18 @@ angular.module('ddconsole.app', ['ddconsole.resource'])
             $('#external-uri-help-modal').modal('show');
           }, 
           function() {
-            var index = $.inArray(new_external_uri, $scope.app.instances[0].external_uris);
+            var index = $.inArray(new_external_uri, $scope.app.instances.prod.external_uris);
             if(index >= 0) {
-              $scope.app.instances[0].external_uris.splice(index);
+              $scope.app.instances.prod.external_uris.splice(index);
             }
         });
       }
     }
 
     $scope.removeExternalUri = function(uri) {
-      var index = $scope.app.instances[0].external_uris.indexOf(uri);
+      var index = $scope.app.instances.prod.external_uris.indexOf(uri);
       if(index >= 0) {
-        $scope.app.instances[0].external_uris.splice(index, 1);
+        $scope.app.instances.prod.external_uris.splice(index, 1);
         $scope.app.update(function() {
           $scope.reload_repos();
         });

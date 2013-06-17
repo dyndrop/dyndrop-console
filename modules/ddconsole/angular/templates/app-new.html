@@ -2,11 +2,21 @@
 
 <form name="appEditForm">
 
-  <input ng-model="repo_template" type="hidden" name="repo_template" value="empty" ng-init="repo_template='empty'">
+  <div class="control-group project">
+    <label>Project</label>
+    <label class="radio">
+      <input ng-model="repo_template" type="radio" name="repo_template" value="drupal-7" required>
+      Drupal 7
+    </label>
+    <label class="radio">
+      <input ng-model="repo_template" type="radio" name="repo_template" value="empty" required>
+      Empty project
+    </label>
+  </div>
  
   <div class="control-group url" ng-class="{error: appEditForm.uri.$invalid}">
     <label>URL</label>
-    <div suffixed-url-field="true" name="uri" ng-model="app.instances[0].uris[0]" required>
+    <div suffixed-url-field="true" name="uri" ng-model="app.instances.prod.uris[0]" required>
     </div>
 
     <span ng-show="appEditForm.uri.$error.required" class="help-inline">

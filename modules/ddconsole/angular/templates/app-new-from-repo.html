@@ -4,7 +4,7 @@
  
   <div class="control-group url" ng-class="{error: appEditForm.uri.$invalid}">
     <label>URL</label>
-    <div suffixed-url-field="true" name="uri" ng-model="app.instances[0].uris[0]" required>
+    <div suffixed-url-field="true" name="uri" ng-model="app.instances.prod.uris[0]" required>
     </div>
 
     <span ng-show="appEditForm.uri.$error.required" class="help-inline">

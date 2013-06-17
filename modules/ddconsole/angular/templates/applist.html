@@ -31,7 +31,7 @@
                 <span ng-show="repo_is_supported(repo) == false">{{repo.location.split('/')[1]}}</span>
               </div>
               <div ng-show="repo.app" class="title">
-                <a href="/{{repo.location}}">{{repo.app.label}}</a> @ <a ng-show="repo.app" href="http://{{repo.app.instances[0].primary_uri}}" target="_blank">{{repo.app.instances[0].primary_uri}}</a>
+                <a href="/{{repo.location}}">{{repo.app.label}}</a> @ <a ng-show="repo.app" href="http://{{repo.app.instances.prod.primary_uri}}" target="_blank">{{repo.app.instances.prod.primary_uri}}</a>
               </div>
               <div class="description">
                 {{repo.provider_data.description}}

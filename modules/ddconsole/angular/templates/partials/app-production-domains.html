@@ -12,11 +12,11 @@
     </thead>
     <tbody>
       <tr>
-        <td><a href="http://{{app.instances[0].uris[0]}}/" target="_blank">{{app.instances[0].uris[0]}}</a></td>
+        <td><a href="http://{{app.instances.prod.uris[0]}}/" target="_blank">{{app.instances.prod.uris[0]}}</a></td>
         <td><i class="icon-ok"></i></td>
         <td>Default domain</td>
       </tr>
-      <tr ng-repeat="uri in app.instances[0].external_uris" ng-class="{error: dns_checks[uri] == false}">
+      <tr ng-repeat="uri in app.instances.prod.external_uris" ng-class="{error: dns_checks[uri] == false}">
         <td>
           <a href="http://{{uri}}" target="_blank"><span>{{uri}}</span></a> 
         </td>
@@ -58,7 +58,7 @@
       <p>
         If you want to redirect www.example.com to this website, you will need to add the following CNAME record:<br />
       name: <strong>www</strong> <br />
-      value: <strong>{{app.instances[0].uris[0]}}.</strong>
+      value: <strong>{{app.instances.prod.uris[0]}}.</strong>
       </p>
       <p>
         After having done so, you will have to wait up to a few hours while your CNAME entry is propagating.
