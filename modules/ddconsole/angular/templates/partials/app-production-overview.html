@@ -1,15 +1,15 @@
 <div class="span8">
   <legend>Currently hosted</legend>
 
-  <div ng-show="app.instances.prod.code" class="currently-hosted">
+  <div ng-show="app.instances[0].code" class="currently-hosted">
 
     <div class="media">
       <a class="pull-left" href="#">
-        <img class="media-object" src="{{app.instances.prod.code.author.avatar}}">
+        <img class="media-object" src="{{app.instances[0].code.author.avatar}}">
       </a>
       <div class="media-body">
-        <h4 class="media-heading">{{app.instances.prod.code.message}}</h4>
-        {{app.instances.prod.code.author.name}} - {{app.instances.prod.code.authored_date}}
+        <h4 class="media-heading">{{app.instances[0].code.message}}</h4>
+        {{app.instances[0].code.author.name}} - {{app.instances[0].code.authored_date}}
       </div>
     </div>
     <div>
@@ -19,7 +19,7 @@
 </div>
 
 <!-- <div class="span2">
-  <a class="btn btn-large" href="http://{{app.instances.prod.uris[0]}}/" target="_blank" style="margin-bottom:5px">Go to website &gt;</a>
-  <a class="btn btn-mini" href="http://{{app.instances.prod.uris[0]}}/install.php" target="_blank">install.php</a>
-  <a class="btn btn-mini" href="http://{{app.instances.prod.uris[0]}}/update.php" target="_blank">update.php</a>
+  <a class="btn btn-large" href="http://{{app.instances[0].uris[0]}}/" target="_blank" style="margin-bottom:5px">Go to website &gt;</a>
+  <a class="btn btn-mini" href="http://{{app.instances[0].uris[0]}}/install.php" target="_blank">install.php</a>
+  <a class="btn btn-mini" href="http://{{app.instances[0].uris[0]}}/update.php" target="_blank">update.php</a>
 </div> -->

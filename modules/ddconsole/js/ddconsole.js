@@ -43,9 +43,9 @@ angular.module('ddconsole', ['ddconsole.app', 'ddconsole.settings', 'ddconsole.r
         //Add primary uri infos on the repos. To be moved on resource later.
         for(var i = 0; i < repos.length; i++) {
           if(repos[i].app != null) {
-            repos[i].app.instances.prod.primary_uri = repos[i].app.instances.prod.uris[0];
-            if(repos[i].app.instances.prod.external_uris.length > 0) {
-              repos[i].app.instances.prod.primary_uri = repos[i].app.instances.prod.external_uris[0];
+            repos[i].app.instances[0].primary_uri = repos[i].app.instances[0].uris[0];
+            if(repos[i].app.instances[0].external_uris.length > 0) {
+              repos[i].app.instances[0].primary_uri = repos[i].app.instances[0].external_uris[0];
             }
           }
         }
