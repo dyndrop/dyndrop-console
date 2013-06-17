@@ -52,6 +52,8 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
           if (error) {
             //Error string here: error.apierror
             //TODO: Later, move this DOM-altering bit of code
+            console.log("Card addition error");
+            console.log(error);
             $('.form-row-submit button').removeAttr("disabled");
           } 
           else {
