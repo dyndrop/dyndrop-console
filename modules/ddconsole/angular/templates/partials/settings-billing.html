@@ -29,60 +29,8 @@
   </table>
 
 
-  <form id="add-card-form" name="add_card_form" ng-controller="SettingsCardAddCtrl" ng-submit="addCard()">
-    <div class="well">
-
-      <h4>Add new credit card</h4>
-
-        <div class="form-row control-group" ng-class="{error: add_card_form.number.$invalid}">
-          <label>Card number</label>
-          <input name="number" type="text" size="20" ng-model="paymill_token.number" paymill-number />
-        </div>
-
-        <div class="form-row control-group" ng-class="{error: add_card_form.cvc.$invalid}">
-          <label>CVC</label>
-          <input name="cvc" type="text" size="4" ng-model="paymill_token.cvc" paymill-cvc /></div>
-
-        <div class="form-row"><label>Expiry date</label>
-          <select ng-model="paymill_token.exp_month">
-            <option value="1">01</option>
-            <option value="2">02</option>
-            <option value="3">03</option>
-            <option value="4">04</option>
-            <option value="5">05</option>
-            <option value="6">06</option>
-            <option value="7">07</option>
-            <option value="8">08</option>
-            <option value="9">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-          </select>
-          <span></span>
-          <select ng-model="paymill_token.exp_year">
-            <option value="2013">2013</option>
-            <option value="2014">2014</option>
-            <option value="2015">2015</option>
-            <option value="2016">2016</option>
-            <option value="2017">2017</option>
-            <option value="2018">2018</option>
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>
-          </select>
-        </div>
-
-        <div class="form-row-submit">
-          <button class="btn" type="submit" ng-disabled="add_card_form.$pristine || add_card_form.$invalid || newCardIsInvalid()">Add</button>
-        </div>
-
-
-      <script type="text/javascript">
-        var PAYMILL_PUBLIC_KEY = Drupal.settings.dyndrop_console.paymill_client_id;
-      </script>
-      <script type="text/javascript" src="https://bridge.paymill.com/"></script>
-
-    </div>
-  </form>
-
+  <div ng-show="cards.length == 0">
+    No credit cards registered.
+  </div>
 
 </div>

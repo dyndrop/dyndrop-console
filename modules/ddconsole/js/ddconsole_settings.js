@@ -45,16 +45,24 @@ angular.module('ddconsole.settings', ['ddconsole.resource'])
       //TODO: Later, move this DOM-altering bit of code
       $('.form-row-submit button').attr("disabled", "disabled");
 
-      LoadingSrv.requestCount++;
+      //TODO: Hardcoded values for 3dsecure
+      if($scope.transaction_plan_being_chosen == "small") {
+        $scope.paymill_token.amount_int = 3000;
+        $scope.paymill_token.currency = "EUR";
+      }
+
+      //LoadingSrv.requestCount++;
       paymill.createToken($scope.paymill_token, 
         function(error, result) {
-          LoadingSrv.requestCount--;
+          //LoadingSrv.requestCount--;
           if (error) {
-            //Error string here: error.apierror
+            console.log("Card addition error: " + error.apierror);
             //TODO: Later, move this DOM-altering bit of code
-            console.log("Card addition error");
-            console.log(error);
             $('.form-row-submit button').removeAttr("disabled");
+            $('#add-card-modal').modal('hide');
+            //FIXME
+            //LoadingSrv.errorMessages.push('Error while adding card: ' + error.apierror);
+            alert('Error while adding card: ' + error.apierror);
           } 
           else {
             var token = result.token;
